@@ -50,7 +50,7 @@ echo "🔧 Activating virtual environment..."
 source .venv/bin/activate
 
 echo "🔍 Checking dependencies..."
-pip install --quiet pypdf pyyaml
+pip install --quiet -r requirements.txt
 
 # Build the Quarto command dynamically
 Q_CMD=(quarto)
@@ -83,7 +83,7 @@ if [[ $PREVIEW -eq 0 ]]; then
     fi
     
     echo "🪓 Chopping PDF in $CHOP_DIR..."
-    python3 chopper.py "$CHOP_DIR"
+    python3 .scripts/chopper.py "$CHOP_DIR"
 fi
 
 echo "✅ Build complete."

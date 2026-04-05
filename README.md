@@ -51,14 +51,15 @@ The `build.sh` script also accepts `-p` (preview), `-a` (accessible) modes, and 
 
 ### 📂 Repository Structure
 
-+ `build.sh`: The script containing several common build commands
-+ `chopper.py`: Slices the compiled master PDF into individual files for student use (with correct cross-references!)
-+ `_quarto.yml`: Controls formatting, book structure, and profile definitions for public-facing book (website)
-+ `_quarto-instructor.yml`: Implements a profile for rendering all files, including exams and solution manuals
++ `build.sh`: The script containing several common build commands.
++ `_quarto.yml`: Controls formatting, book structure, and profile definitions for public-facing book (website).
++ `_quarto-instructor.yml`: Implements a profile for rendering all files, including exams and solution manuals.
 + `_quarto-accessible.yml`: Allows the use of `axe-core` for live accessibility audits.
-+ `_variables.yml`: Contains course configuration data used to auto-populate files
++ `_variables.yml`: Contains course configuration data used to auto-populate files.
 + `_macros.qmd`: Shared LaTeX macros injected into all working files.
-+ `*.lua`: Custom Pandoc filters that handle formatting, exam logic, and autonumbering.
++ `.scripts/`: A folder for typesetting logic scripts.
+    + `chopper.py`: Slices the compiled master PDF into individual files for student use.
+    + `*.lua`:  Pandoc filters that handle formatting, exam logic, and autonumbering.
 + `homework/hw-*.qmd`, `exams/exam-*.qmd`, etc.: Markdown content files.
 + `_site/`, `_instructor/`, and `_accessible`: The directories where builds place the resulting files, depending on the profile.
 

@@ -4,7 +4,9 @@
 {{< include ../_macros.qmd >}}
 :::
 
-We briefly recall some standard definitions and results concerning polytopes in Euclidean space. An $n$-dimensional polytope may be defined either as the convex hull of a finite set of points in $\Rb^n$ or, equivalently, as a bounded intersection of finitely many half-spaces. The $k$-dimensional faces of a polytope (for all $0 \leq k \leq n$) form a graded structure that will be useful when passing to more combinatorial descriptions.
+We briefly recall some standard definitions and results concerning polytopes in Euclidean space. For additional context, see @DH1998.
+
+An $n$-dimensional polytope may be defined either as the convex hull of a finite set of points in $\Rb^n$ or, equivalently, as a bounded intersection of finitely many half-spaces. The $k$-dimensional faces of a polytope (for all $0 \leq k \leq n$) form a graded structure that will be useful when passing to more combinatorial descriptions.
 
 Of particular importance are cubes and their higher-dimensional analogues. The $n$-cube, or *hypercube*, can be described as the Cartesian product of $n$ intervals, and its face lattice admits a simple description in terms of binary strings. This combinatorial regularity makes hypercubes a convenient testing ground for general constructions, even in settings where the underlying metric structure is modified or only partially specified.
 

@@ -67,5 +67,5 @@ format:
     citecolor: ForestGreen
 
 filters:
-  - auto-numbering.lua
-  - centered-title.lua
+  - .scripts/auto-numbering.lua
+  - .scripts/centered-title.lua

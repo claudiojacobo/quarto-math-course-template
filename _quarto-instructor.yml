@@ -11,4 +11,4 @@ project:
   output-dir: _instructor
 
 filters:
-  - gradetable.lua
+  - .scripts/gradetable.lua
