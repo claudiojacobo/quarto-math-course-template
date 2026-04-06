@@ -41,7 +41,7 @@ Next, run `./build.sh` and view the resulting PDFs in `_instructor` and the dire
 When developing course materials, place new `*.qmd` files into the `homework/`, `notes/`, and other such directories. Add references to these documents in the top-level `.yml` files:
 
 + Public-facing ("open") content goes into `_quarto.yml`
-+ Instructor-only ("closed") material go into `_quarto-instructor.yml`. 
++ Instructor-only ("closed") materials go into `_quarto-instructor.yml`. 
 
 Note that public-facing content can also be conditionally enhanced in instructor mode. For example, we can write homework solutions inside a `when-profile="instructor"` block (see [`hw-0.qmd`](homework/hw-0.qmd) for an example)---these will only render when we build the instructor version---or make clickable solutions that are only available online (`when-format="html"`; see [`practice-1.qmd`](exams/practice-1.qmd)).
 
@@ -74,6 +74,8 @@ Note that the script displays the Quarto command it runs, in case you prefer to 
     + `_variables.yml`: Contains course configuration data used to auto-populate files.
     + `_macros.qmd`: Shared LaTeX macros (**make sure to include these in all working files!**)
     + `homework/hw-*.qmd`, `exams/exam-*.qmd`, etc: These files contain the actual course content.
+    + `index.qmd`: The website landing page.
+    + `references.bib`: Contains all course references.
 
 + Additional materials of interest:
     + `_site/`, `_instructor/`, and `_accessible/`: The directories where builds place exported files, depending on the profile.
@@ -82,6 +84,7 @@ Note that the script displays the Quarto command it runs, in case you prefer to 
         + `chopper.py`: Slices the compiled master PDF into individual files for student use.
         + `*.lua`:  Pandoc filters that handle formatting, exam logic, and autonumbering.
     + `_quarto-accessible.yml`: Allows the use of `axe-core` for live accessibility audits.
+    + `before-title.tex`: Part of the [current solution](https://github.com/orgs/quarto-dev/discussions/12838) to global TeX macros for Quarto books.
     + `favicon.ico`: Replace this with your own personal branding!
 
 ### Deployment
