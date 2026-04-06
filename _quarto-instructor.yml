@@ -9,6 +9,3 @@ book:
 
 project:
   output-dir: _instructor
-
-filters:
-  - .scripts/gradetable.lua

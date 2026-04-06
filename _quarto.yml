@@ -69,3 +69,4 @@ format:
 filters:
   - .scripts/auto-numbering.lua
   - .scripts/centered-title.lua
+  - .scripts/gradetable.lua
