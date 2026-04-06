@@ -1,121 +1,37 @@
-/* Flatly colors */
+/* Some colors and dark mode settings (based around Flatly and Darkly themes) */
+
 :root {
-    --bs-info: #3498db;
-    --bs-warning: #f39c12;
-    --bs-danger: #e74c3c;
-
-    --bs-info-text-emphasis: #153d58;
-    --bs-warning-text-emphasis: #613e07;
-    --bs-danger-text-emphasis: #5c1e18;
-
-    --bs-info-bg-subtle: #d6eaf8;
-    --bs-warning-bg-subtle: #fdebd0;
-    --bs-danger-bg-subtle: #fadbd8;
-
-    --bs-info-border-subtle: #aed6f1;
-    --bs-warning-border-subtle: #fad7a0;
-    --bs-danger-border-subtle: #f5b7b1;
-
-    --my-code-bg: #f3f4f6;
+    --span-bg-blue: #d6eaf8;
+    --span-bg-yellow: #fdebd0;
+    --span-bg-red: #fadbd8;
+    --span-bg-mono: #f3f4f6;
 }
 
-/* Darkly colors */
 .quarto-dark {
-    --bs-info-text-emphasis: #85c1e9;
-    --bs-warning-text-emphasis: #f8c471;
-    --bs-danger-text-emphasis: #f1948a;
-
-    --bs-info-bg-subtle: #0a1e2c;
-    --bs-warning-bg-subtle: #311f04;
-    --bs-danger-bg-subtle: #2e0f0c;
-
-    --bs-info-border-subtle: #1f5b83;
-    --bs-warning-border-subtle: #925e0b;
-    --bs-danger-border-subtle: #8b2e24;
-
-    --my-code-bg: #373737;    
+    --span-bg-blue: #164363;
+    --span-bg-yellow: #664008;
+    --span-bg-red: #5b1e18;
+    --span-bg-mono: #373737;    
 }
 
-/* Base Block Variables & Dark Mode Overrides */
-[class^="block-"] {
-    /* Light mode defaults */
-    --block-link-color: var(--block-theme);
-    --block-btn-border: black;
-    --block-btn-text: white;
-    --block-btn-hover-text: white;
-}
-.quarto-dark [class^="block-"] {
-    /* Swap specific properties when Quarto is in dark mode */
-    --block-link-color: var(--block-text-emph);
-    --block-btn-border: white;
-    --block-btn-hover-text: black;
-}
-
-/* Block Theme Mapping */
-.block-1 {
-    --block-theme: var(--bs-info);
-    --block-text-emph: var(--bs-info-text-emphasis);
-    --block-bg-subtle: var(--bs-info-bg-subtle);
-    --block-link-hover: var(--bs-warning);
-}
-.block-2 {
-    --block-theme: var(--bs-warning);
-    --block-text-emph: var(--bs-warning-text-emphasis);
-    --block-bg-subtle: var(--bs-warning-bg-subtle);
-    --block-link-hover: var(--bs-success);
-}
-.block-3 {
-    --block-theme: var(--bs-danger);
-    --block-text-emph: var(--bs-danger-text-emphasis);
-    --block-bg-subtle: var(--bs-danger-bg-subtle);
-    --block-link-hover: var(--bs-info);
-}
-
-/* Shared Block Styling */
-[class^="block-"] {
-    border: 2px dashed var(--block-theme);
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
-[class^="block-"] a {
-    color: var(--block-link-color) !important;
-    text-decoration-color: var(--block-link-color) !important;
-    text-decoration: underline;
-    transition: color 0.2s ease;
-}
-[class^="block-"] a:hover {
-    color: var(--block-link-hover) !important;
-    text-decoration: none;
-}
-[class^="block-"] code {
-    background-color: var(--my-code-bg);
-}
-[class^="block-"] .btn {
-    background-color: var(--block-theme);
-    border: 2px dashed var(--block-btn-border);
-    color: var(--block-btn-text) !important;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-}
-[class^="block-"] .btn:hover {
-    color: var(--block-btn-hover-text) !important;
-    background-color: var(--block-text-emph);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Global Interactive Element Transitions */
+/* Smooth transitions for all interactive elements */
 a, button, .btn {
     transition: all 0.2s ease;
 }
 
-/* Tombstone after proofs */
+/* Tombstone (Q.E.D. symbol) after proofs */
 .proof:not(.remark) {
     margin-bottom: 0.5em;
     overflow: auto;
 }
+
 .proof:not(.remark)::after {
     content: "□";
     float: right;
+    font-weight: bold;
 }
 
+/* Announcements in school colors */
 .notebox {
     background-color: #FFD24F;
     border: 1pt solid #003069;
