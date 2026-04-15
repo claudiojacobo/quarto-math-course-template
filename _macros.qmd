@@ -45,20 +45,24 @@
 \providecommand{\Klein}{\mathcal{V}}
 \providecommand{\Quaternion}[1][8]{\mathcal{Q}_{#1}}
 \providecommand{\Permutation}[1]{\operatorname{Perm}(#1)}
-\providecommand{\ConjugacyClass}[2][]{\operatorname{cl}_{#1}(#2)}
+\providecommand{\ConjugacyClass}[2][]{\operatorname{cl}_{#1}({#2})}
 \providecommand{\Center}[1]{\mathbf{Z}(#1)}
 \providecommand{\Normal}{\unlhd}
 \providecommand{\Acts}{⟳}
 \providecommand{\Fix}{\operatorname{Fix}}
-\providecommand{\Stabilizer}[2][]{\operatorname{Stab}_{#1}(#2)}
-\providecommand{\Centralizer}[2][]{\operatorname{C}_{#1}(#2)}
-\providecommand{\Abelianization}[1]{{#1}^{\mathrm{ab}}}
+\providecommand{\Stabilizer}[2][]{\operatorname{Stab}_{#1}({#2})}
+\providecommand{\Orbit}[2][]{\operatorname{Orb}_{#1}({#2})}
+\providecommand{\Centralizer}[2][]{\operatorname{C}_{#1}({#2})}
+\providecommand{\Abelianization}[1]{{#1}^{\mathrm{Ab}}}
 
 % algebra
 \providecommand{\Hom}{\operatorname{Hom}}
 \providecommand{\End}{\operatorname{End}}
 \providecommand{\Aut}{\operatorname{Aut}}
 \providecommand{\Id}{\mathbb{I}}
+
+% fields
+\providecommand{\Characteristic}{\operatorname{char}}
 
 % linear algebra
 \providecommand{\Mat}{\operatorname{Mat}}
@@ -68,11 +72,12 @@
 \providecommand{\Trace}{\operatorname{Tr}}
 \providecommand{\Diagonal}{\operatorname{Diag}}
 \providecommand{\GL}{\operatorname{GL}}
-\providecommand{\SL}{\operatorname{GL}}
+\providecommand{\SL}{\operatorname{SL}}
 \providecommand{\Orthogonal}{\operatorname{O}}
 \providecommand{\SO}{\operatorname{SO}}
 \providecommand{\Unitary}{\operatorname{U}}
 \providecommand{\SU}{\operatorname{SU}}
+\providecommand{\SymmetricPower}[2][]{\operatorname{Sym}^{#1}({#2})}
 
 % category theory
 \providecommand{\catname}[1]{\mathsf{#1}}
@@ -90,5 +95,8 @@
   \providecommand{\diffp}[2]{\frac{\dlp{#1}}{\dlp{#2}}}
 \fi
 \providecommand{\diffpn}[3]{\frac{\partial^{#3} #1}{\partial #2^{#3}}}
+\providecommand{\Divergence}{\operatorname{div}}
+\providecommand{\Curl}{\operatorname{curl}}
+\providecommand{\Gradient}{\operatorname{grad}}
 \providecommand{\D}{\mathrm{D}}
 \providecommand{\I}{\mathrm{I}}
