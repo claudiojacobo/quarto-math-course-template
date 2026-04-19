@@ -40,6 +40,7 @@ function Pandoc(doc)
 
             local new_content = {}
             local current_parts = {}
+            local list_start_num = 1 -- Tracks the starting index of the slist
 
             -- Loop through direct children to group .part Divs into a native OrderedList
             for _, sub_el in ipairs(el.content) do
@@ -74,22 +75,23 @@ function Pandoc(doc)
                 end
                 
                 -- Add this part to our running list of items. 
-                -- Note: A list item in Pandoc is a list of blocks, so we wrap sub_el in a table.
                 table.insert(current_parts, { sub_el })
               else
                 -- If we hit a non-part block, flush any accumulated parts into an OrderedList
                 if #current_parts > 0 then
-                  table.insert(new_content, pandoc.OrderedList(current_parts, {1, 'LowerAlpha', 'TwoParens'}))
+                  -- Use list_start_num so numbering doesn't reset
+                  table.insert(new_content, pandoc.OrderedList(current_parts, {list_start_num, 'LowerAlpha', 'TwoParens'}))
+                  list_start_num = list_start_num + #current_parts -- Increment for the next chunk
                   current_parts = {} 
                 end
-                -- Add the non-part block
+                -- Add the non-part block (like \vfill)
                 table.insert(new_content, sub_el)
               end
             end
 
             -- After the loop, flush any remaining parts at the end of the question
             if #current_parts > 0 then
-              table.insert(new_content, pandoc.OrderedList(current_parts, {1, 'LowerAlpha', 'TwoParens'}))
+              table.insert(new_content, pandoc.OrderedList(current_parts, {list_start_num, 'LowerAlpha', 'TwoParens'}))
             end
 
             el.content = new_content

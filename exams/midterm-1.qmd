@@ -22,19 +22,25 @@ Consider a particle moving along a hypersquare whose discrete action is modeled 
 Compute the formal derivative $A'(t)$ with respect to the phase parameter $t$.
 :::
 
-::: {.part points=3}
+\vfill
+
+::: {#prb-critical-phases .part points=3}
 Find the critical phases $t$ where the action is locally minimized or maximized.
 :::
 
-::: {.part points=4}
+\vfill
+
+::: {#prb-self-intersections .part points=4}
 Sketch the action curve on the provided 2-face grid, clearly labeling the anomalous self-intersections.
 :::
+
+\vfill
 
 ::::
 
 {{< include _blank-page.qmd >}}
 
-::: {.question points=10}
+::: {#prb-maximum-discrete-action .question points=10}
 As you proved in @prb-coherence-identity, sequential reflections on a 2-face yield the identity automorphism, effectively trapping the particle. Suppose the accumulated discrete action $\mathcal{S}(t)$ under the transport holonomy $\mathcal{H}_\gamma(t)$ is governed by the trace of the hypersquare connection form:
 $$
 \mathcal{S}(t) = \frac{1}{2\pi i} \oint_{\dlp{Q}} \Trace \left( \mathcal{H}_\gamma(t)^{-1} \nabla_{\!t} \mathcal{H}_\gamma(t) \right) \dl{\tau}

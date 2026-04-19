@@ -42,10 +42,10 @@ format:
     toc-depth: 4
     number-depth: 1
     html-math-method: mathjax
-    respect-user-color-scheme: false
+    respect-user-color-scheme: true
     theme:
-      dark: darkly
       light: flatly
+      dark: darkly
     css: styles.css
   pdf:
     toc-depth: 2
