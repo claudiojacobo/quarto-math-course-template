@@ -21,7 +21,7 @@ To compile this repository, you must have:
 + **Python 3** (The build script will automatically generate a virtual environment and install required packages via `pip`).
 + A Bash-compatible terminal.
 
-On a Mac, these are all easily obtained via [Homebrew](https://brew.sh/):
+On a Mac, these are all easily obtained via [Homebrew](https://tools.cjgg.me/foundations/managers.html):
 
 ```bash
 brew install --cask quarto
