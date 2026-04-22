@@ -43,7 +43,7 @@ format:
     number-depth: 1
     html-math-method: mathjax
     include-in-header:
-      - mathjax-copy.html # allows copying underlying LaTeX formulae
+      - .scripts/mathjax-copy.html
     respect-user-color-scheme: true
     theme:
       light: flatly
