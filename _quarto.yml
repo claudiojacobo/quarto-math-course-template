@@ -42,6 +42,8 @@ format:
     toc-depth: 4
     number-depth: 1
     html-math-method: mathjax
+    include-in-header:
+      - mathjax-copy.html # allows copying underlying LaTeX formulae
     respect-user-color-scheme: true
     theme:
       light: flatly
