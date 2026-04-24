@@ -2,6 +2,9 @@ project:
   type: book
   output-dir: _site
 
+number-sections: true
+number-depth: 2
+
 book:
   title: "Math 401"
   subtitle: "Non-Riemannian Hypersquares"
@@ -16,7 +19,6 @@ book:
         - notes/hypersquare-geometry.qmd
     - references.qmd
   appendices:
-    - syllabus/main.qmd
     - part: "Homework"
       contents:
         - homework/hw-0.qmd
@@ -24,6 +26,7 @@ book:
     - part: "Practice Exams"
       contents:
         - exams/practice-1.qmd
+    - syllabus/main.qmd
   favicon: favicon.ico
   downloads: [pdf]
   sidebar:
@@ -39,8 +42,7 @@ bibliography: references.bib
 format:
   html:
     toc: true
-    toc-depth: 4
-    number-depth: 1
+    toc-depth: 3
     html-math-method: mathjax
     include-in-header:
       - .scripts/mathjax-copy.html

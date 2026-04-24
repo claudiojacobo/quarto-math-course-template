@@ -1,4 +1,21 @@
-# Syllabus {.unnumbered .centered-title}
+---
+body-classes: hide-appendix
+include-in-header:
+  - text: |
+      <style>
+      body.hide-appendix {
+        --clean-title: "Syllabus";
+      }
+      </style>
+      <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Scrubs "Appendix A - " (or any similar pattern) from the browser tab
+        document.title = document.title.replace(/Appendix [A-Z]+\s*[-—]\s*/, "");
+      });
+      </script>
+---
+
+# Syllabus {.centered-title}
 
 ::: {.content-hidden}
 {{< include ../_macros.qmd >}}

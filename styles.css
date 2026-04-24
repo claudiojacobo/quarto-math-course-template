@@ -1,4 +1,4 @@
-/* Some colors and dark mode settings (based around Flatly and Darkly themes) */
+/* ===== Theming (based around Flatly and Darkly themes) ===== */
 
 :root {
     --span-bg-blue: #d6eaf8;
@@ -19,7 +19,8 @@ a, button, .btn {
     transition: all 0.2s ease;
 }
 
-/* Tombstone (Q.E.D. symbol) after proofs */
+/* ===== Tombstone after proofs ===== */
+
 .proof:not(.remark) {
     margin-bottom: 0.5em;
     overflow: auto;
@@ -31,7 +32,7 @@ a, button, .btn {
     font-weight: bold;
 }
 
-/* Announcements in school colors */
+/* ===== Announcements in school colors ===== */
 .notebox {
     background-color: #FFD24F;
     border: 1pt solid #003069;
@@ -40,4 +41,49 @@ a, button, .btn {
     padding: 1em;
     border-radius: 0;
     margin-bottom: 1em;
+}
+
+/* ===== Quarto numbering workaround
+   
+   If we use Quarto's native {.unnumbered} tag on a markdown header, it 
+   breaks the internal cross-referencing engine on that page. We need the 
+   sections to be numbered internally so that references (like @sec-intro) 
+   continue to work across the book, but we want to visually hide those 
+   numbers in the HTML output. Because Quarto hardcodes "Appendix X -" 
+   directly into the H1 text, we must manually overwrite the text using 
+   a CSS variable (--clean-title) defined in the page's YAML header.
+
+   ===== */
+
+/* Hide the hardcoded H1 text, but keep its footprint */
+body.hide-appendix .quarto-title h1.title {
+  visibility: hidden;
+  position: relative;
+}
+
+/* Overlay the clean title using the CSS variable */
+body.hide-appendix .quarto-title h1.title::after {
+  content: var(--clean-title);
+  visibility: visible;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Hide numbering in the body headers (H2, H3, etc.) */
+body.hide-appendix .header-section-number {
+  display: none !important;
+}
+
+/* Hide numbering in the right-hand floating TOC */
+body.hide-appendix .toc-section-number {
+  display: none !important;
+}
+
+/* Hide the prefix from the left sidebar HTML globally.
+   Note: We use the href so it stays hidden even when viewing other 
+   pages in the book! Add more selectors here separated by commas 
+   if there are other hide-appendix pages. */
+a[href*="syllabus"] .chapter-number {
+  display: none !important;
 }

@@ -15,6 +15,6 @@ An $n$-dimensional *hypersquare* consists of a combinatorial $n$-cube $Q$ togeth
 
 Instead of a metric tensor, we therefore work with these discrete transport operators and their associated coherence data. This allows us to speak of parallel transport and holonomy without requiring differentiability.
 
-## Fundamental Phenomena
+## Fundamental Phenomena {#sec-hypersquares-fundamental-phenomena}
 
 One immediate consequence of this weakened structure is that standard metric identities hold only locally, if at all. For example, while @thm-pythagoras continues to describe distances within individual faces that admit Euclidean charts, there is no guarantee that these local computations are compatible when extended across the entire hypersquare. As a result, geodesic paths---defined here as sequences of edges minimizing a suitable discrete action---need not be unique, and may exhibit periodicity or self-intersection without degeneracy. These phenomena will form the basis for later constructions, where hypersquares serve as model spaces for more general non-metric topological objects.

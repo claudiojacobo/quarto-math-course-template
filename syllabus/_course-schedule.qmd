@@ -10,7 +10,7 @@
 
 #### Week 1: Fundamentals of Square-Logic
 
-+ **Tuesday:** *The classical $n$-cube.* §2.1 and §3. 
++ **Tuesday:** *The classical $n$-cube.* §[-@sec-hypersquares-fundamental-phenomena] and §3. 
   + Syllabus discussion,
   + Face lattices and binary string representations.
 
