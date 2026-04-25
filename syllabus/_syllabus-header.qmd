@@ -1,5 +1,9 @@
 ::: {.content-visible when-format="pdf"}
 ```{=latex}
+    \newcounter{SavedSecNumDepth}
+    \setcounter{SavedSecNumDepth}{\value{secnumdepth}}
+    \setcounter{secnumdepth}{0}
+
     \pagestyle{plain} 
     \setcounter{page}{1}
     \begin{center}

@@ -156,3 +156,5 @@ There are no restrictions on phones, tablets, laptops, or other electronic equip
 Be aware that all Carleton faculty and staff members, with the exception of Chaplains and SHAC staff, are "responsible employees." Responsible employees are required to share any information they have regarding incidents of sexual misconduct with the Title IX Coordinator. Carleton's goal is to ensure community members are aware of all the options available and have access to the resources they need. If you have questions, please contact Carleton's Title IX Coordinator or visit the [Sexual Misconduct Prevention and Response](https://www.carleton.edu/sexual-misconduct/) website.
 
 {{< include _land-acknowledgement.qmd >}}
+
+{{< include _syllabus-footer.qmd >}}

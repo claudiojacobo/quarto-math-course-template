@@ -1,0 +1,6 @@
+::: {.content-visible when-format="pdf"}
+```{=latex}
+    % Restore secnumdepth
+    \setcounter{secnumdepth}{\value{SavedSecNumDepth}}
+```
+:::
