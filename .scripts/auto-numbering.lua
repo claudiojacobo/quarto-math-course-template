@@ -15,17 +15,17 @@ function Header(el)
       
       if hw_id then
         -- Build the raw LaTeX block to inject.
-        -- We check if the listing counters exist to prevent compilation errors
-        -- on assignments that do not contain any code blocks.
+        -- We use @ifundefined checks across the board so this template can be safely reused in courses that do not use custom exercise environments or code blocks.
         local latex_snippet = string.format([[
 \pagestyle{plain}
 \setcounter{page}{1}
 
-\setcounter{exercise}{0}
-\renewcommand{\theexercise}{%s.\arabic{exercise}}
-\renewcommand{\theHexercise}{%s.\arabic{exercise}}
-
 \makeatletter
+\@ifundefined{c@exercise}{}{
+  \setcounter{exercise}{0}
+  \renewcommand{\theexercise}{%s.\arabic{exercise}}
+  \renewcommand{\theHexercise}{%s.\arabic{exercise}}
+}
 \@ifundefined{c@codelisting}{}{
   \setcounter{codelisting}{0}
   \renewcommand{\thecodelisting}{%s.\arabic{codelisting}}
@@ -34,10 +34,10 @@ function Header(el)
 \@ifundefined{c@lstlisting}{}{
   \setcounter{lstlisting}{0}
   \renewcommand{\thelstlisting}{%s.\arabic{lstlisting}}
-  \renewcommand{\theHlstlisting}{%s.\arabic{lstlisting}}
+  \renewcommand{\theHstlisting}{%s.\arabic{lstlisting}}
 }
 \makeatother
-]], hw_id, hw_id, hw_id, hw_id, hw_id, hw_id, hw_id, hw_id, hw_id)
+]], hw_id, hw_id, hw_id, hw_id, hw_id, hw_id)
         
         -- Return the original header, immediately followed by our auto-generated LaTeX
         return {el, pandoc.RawBlock('latex', latex_snippet)}
