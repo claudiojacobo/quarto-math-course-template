@@ -13,6 +13,9 @@ with open("_variables.yml", "r") as file:
 
 OUTPUT_DIRECTORY = os.path.expanduser(config.get("exports-directory", "./Exports"))
 
+# Quarto structural artifacts to never export as PDFs
+ARTIFACTS = ["Appendices", "References"]
+
 def open_directory(output_dir):
     """
     Open directory with default file manager.
@@ -29,29 +32,41 @@ def open_directory(output_dir):
     except Exception as e:
         print(f"⚠️ Could not open directory: {e}")
 
-def extract_bookmarks(outline, reader, level=1):
+def extract_bookmarks(outline, reader, level=1, max_level=2):
     """
     Recursively flattens the PDF outline into a list of dictionaries.
-    Tags bookmarks that act as 'parents' (like Part headings) and tracks heading depth.
+    Ignores bookmarks deeper than max_level to prevent subsections (like '## Solutions')
+    from turning standard documents into 'parents'.
     """
     bookmarks = []
+    
     for i, item in enumerate(outline):
+        # Skip the list objects themselves; we handle them explicitly inside the parent block
         if isinstance(item, list):
-            bookmarks.extend(extract_bookmarks(item, reader, level + 1))
-        else:
-            title = item.title
-            page_num = reader.get_page_number(item.page)
+            continue
             
-            is_parent = False
-            if i + 1 < len(outline) and isinstance(outline[i+1], list):
-                is_parent = True
-                
-            bookmarks.append({
-                "title": title,
-                "page": page_num,
-                "is_parent": is_parent,
-                "level": level
-            })
+        title = item.title
+        page_num = reader.get_page_number(item.page)
+        
+        # Check if the next item holds this item's children
+        has_children = False
+        if i + 1 < len(outline) and isinstance(outline[i+1], list) and len(outline[i+1]) > 0:
+            has_children = True
+            
+        # We only flag as a parent if the item has children and we care about those children
+        is_parent = has_children and (level < max_level)
+        
+        bookmarks.append({
+            "title": title,
+            "page": page_num,
+            "is_parent": is_parent,
+            "level": level
+        })
+        
+        # Recursively process children, but only if we haven't hit our depth limit
+        if has_children and level < max_level:
+            bookmarks.extend(extract_bookmarks(outline[i+1], reader, level + 1, max_level))
+            
     return bookmarks
 
 def chop_master_pdf(output_dir="_chopped", skip_body=True):
@@ -100,13 +115,19 @@ def chop_master_pdf(output_dir="_chopped", skip_body=True):
     reached_endmatter = False
     for i, cut in enumerate(cuts):
         
+        # Trigger the endmatter flag if we hit an artifact or the references (hard-coded in case it isn't regarded as an artifact)
+        if cut["title"] in ARTIFACTS or cut["title"] == "References":
+            reached_endmatter = True
+
         # Skip course notes (these are published elsewhere)
         if skip_body and not reached_endmatter:
-            if cut["title"] == "References":
-                reached_endmatter = True
-            else:
-                print(f"    ⏭️ Skipping main text: {cut['title']}")
-                continue
+            print(f"    ⏭️ Skipping main text: {cut['title']}")
+            continue
+
+        # Skip explicitly blacklisted structural artifacts
+        if cut["title"] in ARTIFACTS:
+            print(f"    ⏭️ Skipping artifact: {cut['title']}")
+            continue
 
         start_page = cut["page"]
         end_page = cuts[i+1]["page"] if i + 1 < len(cuts) else total_pages
@@ -119,8 +140,10 @@ def chop_master_pdf(output_dir="_chopped", skip_body=True):
         writer = PdfWriter()
         for p in range(start_page, end_page):
             writer.add_page(reader.pages[p])
+            
         safe_title = re.sub(r'[^a-zA-Z0-9_\- ]', '', cut["title"]).strip()
         out_file = out_dir / f"{safe_title}.pdf"
+        
         with open(out_file, "wb") as f:
             writer.write(f)
             
