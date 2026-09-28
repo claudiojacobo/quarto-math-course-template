@@ -34,30 +34,20 @@ include-in-header:
 ### How to succeed
 + Pre-read actively and come to class with questions,
 + Begin homework immediately after it is assigned,
-+ Work with each other and work towards building a supportive community,
 + Visit my office hours frequently and ask lots of questions!
 
-::: {.content-visible when-format="pdf"}
-```{=latex}
-    \bigskip
-    \begin{notebox}
-    \textbf{Talk to me!} I have specifically worked to design a course that challenges the ways we think and allows us to grow together. If you need help, or even if you don't and just have suggestions or thoughts, please come to my office! I promise to treat your problems with respect and to keep any sensitive conversations as confidential as I can, but note that (under \href{https://www.carleton.edu/sexual-misconduct/get-help/reporting-2/required-reporting/}{Title IX}) I am a mandatory reporter of sexual misconduct.
-    \end{notebox}
-```
+:::: {.block-announcement}
+::: {.block-header}
+Talk to me!
 :::
-
-:::: {.content-visible when-format="html"}
-::: {.callout-tip}
-#### Talk to me!
-I have specifically worked to design a course that challenges the ways we think and allows us to grow together. If you need help, or even if you don't and just have suggestions or thoughts, please come to my office! I promise to treat your problems with respect and to keep any sensitive conversations as confident as I can, but note that (under [Title IX](https://www.carleton.edu/sexual-misconduct/get-help/reporting-2/required-reporting/)) I am a mandatory reporter of sexual misconduct.
-:::
+I have worked to design a course that challenges the ways we think and allows us to grow together. If you need help, or even if you just have suggestions or thoughts, please come to my office! I promise to treat your problems with respect and to keep any sensitive conversations as confident as I can, but note that (under [Title IX](https://www.carleton.edu/sexual-misconduct/get-help/reporting-2/required-reporting/)) I am a mandatory reporter of sexual misconduct.
 ::::
 
 {{< pagebreak >}}
 
 ## Course Outline
 
-**Schedule is subject to change!** While the material we learn is building up a coherent and interrelated set of ideas, the primary content evaluated in a particular Midterm corresponds to the Module of the same number (the final Exam corresponds largely to the final Module).
+**Schedule is subject to change!** 
 
 {{< include _course-schedule.qmd >}}
 {{< pagebreak >}}
@@ -107,31 +97,19 @@ Math is a collaborative activity! Even when we publish a paper alone, mathematic
 
 I understand the increasing ubiquity of these technologies, but I discourage their use in this course. While I can imagine some applications---helping you experiment with SageMath, for example---I encourage you to always critically reflect on whose labor is being replaced or which relationships lose out when you invoke these tools. If you are interested in thinking about sociological dimensions of automation and mathematical labor, [here's a good place to start](https://arxiv.org/pdf/2309.11457). Remember, I ask you to grapple with complex ideas in this course because we grow from productive struggle.
 
-::: {.content-visible when-format="pdf"}
-```{=latex}
-    \bigskip
-    \begin{notebox}
-    In general, I view "generational use" of LLMs as inappropriate for this class, while "assistive use" can be appropriate. You may not ask an LLM to solve a problem for you or ask questions of such a system that you would not ask of a classmate or me. I do not authorize the sharing of my course materials with AI platforms. Moreover, I ask you to only turn to LLMs towards understanding a homework problem (\emph{never} on exams or course projects) after working with classmates and me. Transcription software is not allowed in class except with explicit permission via accommodation request.
-    \end{notebox}
-```
+
+:::: {.block-announcement}
+::: {.block-header}
+Usage of LLMs
 :::
-
-:::: {.content-visible when-format="html"}
-::: {.callout-note}
-#### Usage of LLMs
-
 In general, I view "generational use" of LLMs as inappropriate for this class, while "assistive use" can be appropriate. You may not ask an LLM to solve a problem for you or ask questions of such a system that you would not ask of a classmate or me. I do not authorize the sharing of my course materials with AI platforms. Moreover, I ask you to only turn to LLMs towards understanding a homework problem (*never* on exams or course projects) after working with classmates and me. Transcription software is not allowed in class except with explicit permission via accommodation request.
-:::
 ::::
 
 {{< pagebreak >}}
 
 ### Sources of support
 
-You should expect to be challenged in this course! If you are stuck, know that you are following in the footsteps of all who came before you. Here is a list of available resources, some of which will be expanded upon below:
-
-+ Your classmates and me!
-+ The [Academic Support Center](https://www.carleton.edu/asc/), [Student Health and Counseling](https://www.carleton.edu/student-health/), and the [Dean of Students Office](https://www.carleton.edu/dean-of-students/emergency-funding/).
+You should expect to be challenged in this course! If you are stuck, know that you are following in the footsteps of all who came before you. You should seek support from your classmates, me, the [Academic Support Center](https://www.carleton.edu/asc/), [Student Health and Counseling](https://www.carleton.edu/student-health/), and the [Dean of Students Office](https://www.carleton.edu/dean-of-students/emergency-funding/).
 
 ### Student health
 
@@ -149,6 +127,11 @@ There are no restrictions on phones, tablets, laptops, or other electronic equip
 
 Be aware that all Carleton faculty and staff members, with the exception of Chaplains and SHAC staff, are "responsible employees." Responsible employees are required to share any information they have regarding incidents of sexual misconduct with the Title IX Coordinator. Carleton's goal is to ensure community members are aware of all the options available and have access to the resources they need. If you have questions, please contact Carleton's Title IX Coordinator or visit the [Sexual Misconduct Prevention and Response](https://www.carleton.edu/sexual-misconduct/) website.
 
-{{< include _land-acknowledgement.qmd >}}
+:::: {.block-announcement}
+::: {.block-header}
+Land Acknowledgement
+:::
+Carleton derives wealth and prestige through its ownership of ancestral homelands of the Wahpekute and Mdewakanton bands of the Dakota Nation and more broadly as an academic institution in the United States. I urge you to support the organizing work of Indigenous peoples seeking liberation through direct action, advocacy, and education.
+::::
 
 {{< include _syllabus-footer.qmd >}}

@@ -12,13 +12,10 @@ Using @thm-pythagoras, find the hypotenuse of a right triangle with legs $a=3$ a
 :::
 
 :::: {.content-visible when-profile="instructor"}
-::: {.block-1 .p-3 .rounded-4 .mb-4}
-*Solution*.
+::: {.solution .p-3 .rounded-4 .mb-4}
 Because we are using the `instructor` profile, you can see this! 
 $$
     3^2 + 4^2 = c^2 \implies 9 + 16 = c^2 \implies c = 5.
 $$
 :::
 ::::
-
-

@@ -84,6 +84,7 @@ Note that the script displays the Quarto command it runs, in case you prefer to 
     + `.scripts/`: A hidden folder for typesetting logic scripts.
         + `chopper.py`: Slices the compiled master PDF into individual files for student use.
         + `mathjax-copy.html`: Allows normal mouse selection to copy MathJax tags to the clipboard along with the text around it.
+        + `mathjax-config.html`: Allows us to load mathtools, colortbl, etc.
         + `clean-tab-title.html`: Strips out the "Appendix" prefix from browser tab labels.
         + `*.lua`:  Pandoc filters that handle formatting, exam logic, and autonumbering.
     + `_quarto-accessible.yml`: Allows the use of `axe-core` for live accessibility audits.

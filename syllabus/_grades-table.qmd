@@ -9,13 +9,13 @@
 \toprule
 \textbf{A--} [90\%, 93\%) & \multicolumn{2}{c}{\cellcolor{lightgray} \textbf{A} [93\%, 100\%]} \\
 \midrule
-\textbf{B--} [80\%, 83\%) & \textbf{B} [83\%, 87\%) & \textbf{B+} [87\%, 90\%) \\
+\textbf{B--} [80\%, 83\%) & \cellcolor{lightgray} \textbf{B} [83\%, 87\%) & \textbf{B+} [87\%, 90\%) \\
 \midrule
-\textbf{C--} [70\%, 73\%) & \textbf{C} [73\%, 77\%) & \textbf{C+} [77\%, 80\%) \\
+\textbf{C--} [70\%, 73\%) & \cellcolor{lightgray} \textbf{C} [73\%, 77\%) & \textbf{C+} [77\%, 80\%) \\
 \midrule
 \multicolumn{2}{c}{\cellcolor{lightgray} \textbf{D} [60\%, 67\%)} & \textbf{D+} [67\%, 70\%) \\
 \midrule
-\multicolumn{3}{c}{\cellcolor{lightgray} \textbf{F} [0, 59\%)} \\
+\multicolumn{3}{c}{\textbf{F} [0, 59\%)} \\
 \bottomrule
 \end{tabular}
 \end{center}

@@ -1,0 +1,155 @@
+/* custom.scss */
+
+/*-- scss:defaults --*/
+
+/* ===== Theming Variables ===== */
+:root {
+  /* Highlight Backgrounds */
+  --bg-blue: #d6eaf8;
+  --bg-yellow: #fdebd0;
+  --bg-red: #fadbd8;
+  --bg-mono: #f3f4f6;
+
+  /* Institutional Branding (Light Mode) */
+  --school-primary: #003069;
+  --school-secondary: #FFD24F;
+}
+
+body.quarto-dark {
+  /* Highlight Backgrounds */
+  --bg-blue: #164363;
+  --bg-yellow: #664008;
+  --bg-red: #5b1e18;
+  --bg-mono: #373737;    
+
+  /* Institutional Branding (Dark Mode) */
+  --school-primary: #6699cc; 
+  --school-secondary: #FFD24F;
+}
+
+/*-- scss:rules --*/
+
+/* ===== Global Interactive Elements ===== */
+a, button, .btn {
+  transition: all 0.2s ease;
+}
+
+/* ===== Mathematical Environments ===== */
+.proof {
+  margin-bottom: 1.25rem;
+  display: flow-root; 
+
+  /* Apply the mono background to proofs and solutions, but ignore plain remarks */
+  &:not(.remark) {
+    background-color: var(--bg-mono);
+    padding: 1rem 1.25rem;
+    border-radius: 4px;
+
+    /* Safely removes bottom margin for the last element so padding remains even */
+    > *:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  /* Ensure the auto-generated Quarto titles (Proof, Solution) stand out */
+  .proof-title {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  /* Apply the tombstone ONLY if it is an actual proof (not a remark or solution) */
+  &:not(.remark):not(.solution)::after {
+    content: "□";
+    float: right;
+    font-weight: bold;
+  }
+}
+
+/* ===== Announcements ===== */
+.block-announcement {
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  
+  /* School-branded borders and background */
+  background-color: var(--school-secondary);
+  border: 1pt solid var(--school-primary);
+  border-left: 3mm solid var(--school-primary);
+  color: #000000;
+
+  /* Header formatting */
+  .block-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+
+    color: var(--school-primary);
+    font-weight: 700;
+    font-size: 1.1em;
+    margin-bottom: 0.65rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--school-primary) 30%, transparent);
+    
+    p {
+      margin-bottom: 0;
+    }
+
+    &::before {
+      content: "\F484"; /* https://icons.getbootstrap.com/icons/megaphone/ */
+      font-family: "bootstrap-icons";
+      font-size: 1.1em;
+      line-height: 1;
+    }
+  }
+
+  /* Safely removes the bottom margin ONLY for the very last element */
+  & > *:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+/* ===== Quarto Numbering Workaround ===== 
+   
+   Hides hardcoded Quarto numbers visually while preserving 
+   internal @sec cross-referencing logic across the book. 
+   Requires `hide-appendix` class on the body and a `--clean-title` 
+   CSS variable defined in the document YAML.
+*/
+
+body.hide-appendix {
+  
+  /* Hide the hardcoded H1 text, but keep its footprint */
+  .quarto-title h1.title {
+    visibility: hidden;
+    position: relative;
+    
+    /* Overlay the clean title using the CSS variable */
+    &::after {
+      content: var(--clean-title);
+      visibility: visible;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+
+  /* Hide numbering in the body headers (H2, H3, etc.) */
+  .header-section-number {
+    display: none !important;
+  }
+
+  /* Hide numbering in the right-hand floating TOC */
+  .toc-section-number {
+    display: none !important;
+  }
+}
+
+/* Hide the prefix from the left sidebar HTML globally.
+   Note: We use the href so it stays hidden even when viewing other 
+   pages in the book! Add more selectors here separated by commas 
+   if there are other hide-appendix pages. */
+a[href*="syllabus"] .chapter-number {
+  display: none !important;
+}

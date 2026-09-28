@@ -6,8 +6,14 @@
 \RequirePackage{diffcoeff}
 \RequirePackage{tikz-cd}
 
+% Required for custom block headers
+\RequirePackage{fontawesome5} 
+\RequirePackage{etoolbox}
+
 \RequirePackage[table]{xcolor}
 \RequirePackage[many]{tcolorbox}
+
+% --- Template Colors ---
 \definecolor{coolGray}{HTML}{A0A0A0}
 \definecolor{softSkyBlue}{HTML}{9AB8FD}
 \definecolor{rosePink}{HTML}{E361A0}
@@ -16,18 +22,28 @@
 \definecolor{mintGreen}{HTML}{1CCA93}
 \definecolor{warmAmber}{HTML}{FEC161}
 \definecolor{brightRed}{HTML}{D40000}
-\definecolor{carletonMaize}{HTML}{FFD24F}
-\definecolor{carletonBlue}{HTML}{003069}
 
-\newtcolorbox{notebox}{
-    colback=carletonMaize,
-    colframe=carletonBlue,
-    coltext=black,
-    sharp corners,
-    boxrule=1pt,
-    leftrule=3mm,
-    before upper={\parindent0pt},
-    fontupper=\normalfont,
+% --- School Branding ---
+\definecolor{schoolSecondary}{HTML}{FFD24F}
+\definecolor{schoolPrimary}{HTML}{003069}
+
+% --- Announcement Block ---
+\newtcolorbox{block-announcement}[1]{
+  enhanced,
+  breakable,
+  sharp corners,
+  colback=schoolSecondary,
+  colframe=schoolPrimary,
+  coltext=black,
+  boxrule=1pt,
+  leftrule=3mm,
+  before skip=1.25em,
+  after skip=1.25em,
+  left=4mm, right=4mm, top=3mm, bottom=3mm,
+  fonttitle=\bfseries,
+  coltitle=schoolPrimary,
+  title={\ifstrempty{#1}{}{\faIcon{bullhorn}\hspace{0.5em}#1\\[1mm]\textcolor{schoolPrimary!30}{\rule{\linewidth}{0.5pt}}\vspace*{1mm}}},
+  attach title to upper
 }
 
 \setmainfont{STIX Two Text}

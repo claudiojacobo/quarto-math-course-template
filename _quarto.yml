@@ -23,7 +23,9 @@ book:
     - part: "Practice Exams"
       contents:
         - exams/practice-1.qmd
-    - syllabus/main.qmd
+    - part: "Course Materials"
+      contents:
+        - syllabus/main.qmd
   favicon: favicon.ico
   downloads: [pdf]
   sidebar:
@@ -44,13 +46,13 @@ format:
     number-depth: 2
     html-math-method: mathjax
     include-in-header:
+      - .scripts/mathjax-config.html
       - .scripts/mathjax-copy.html
       - .scripts/clean-tab-title.html
     respect-user-color-scheme: true
     theme:
-      light: flatly
-      dark: darkly
-    css: styles.css
+      light: [flatly, custom.scss]
+      dark: [darkly, custom.scss]
   pdf:
     toc-depth: 2
     documentclass: report
@@ -71,6 +73,7 @@ format:
     citecolor: ForestGreen
 
 filters:
+  - .scripts/blocks.lua
   - .scripts/auto-numbering.lua
   - .scripts/centered-title.lua
   - .scripts/gradetable.lua

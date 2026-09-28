@@ -3,7 +3,7 @@ course:
   number: "401"
   term: "Spring 2026"
   prerequisites: "Math 354 or instructor permission"
-  description: "This course offers a rigorous exploration of the geometric anomalies that arise when the fundamental axioms of Riemannian curvature are suspended in favor of hyper-dimensional, square-based topologies. Students will delve into the counter-intuitive properties of hypersquares where parallel transport yields periodic phase shifts, and geodesics paradoxically intersect themselves without forming singularities, challenging our classical intuition of smooth manifolds. Through the interplay of classical algebraic topology and 'square-logic' calculus, the course examines how these non-Riemannian structures model everything from modern data compression to the theoretical underpinnings of a four-dimensional chessboard universe."
+  description: "This course offers a rigorous exploration of the geometric anomalies that arise when the fundamental axioms of Riemannian curvature are suspended in favor of hyper-dimensional, square-based topologies. Students will delve into the counter-intuitive properties of hypersquares where parallel transport yields periodic phase shifts, and geodesics paradoxically intersect themselves without forming singularities, challenging our classical intuition of smooth manifolds. Through the interplay of classical algebraic topology and 'square-logic' calculus, the course examines how these non-Riemannian structures model everything from data compression to the theoretical underpinnings of a four-dimensional chessboard."
 
 instructor:
   name: "Claudio Gómez-Gonzáles"
