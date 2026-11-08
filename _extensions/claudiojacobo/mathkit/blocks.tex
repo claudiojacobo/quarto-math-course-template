@@ -1,0 +1,83 @@
+% blocks.tex — LaTeX versions of the .block-* callouts (the PDF format).
+% blocks.lua turns `::: {.block-note}` divs into \begin{block-note}{Title}.
+% Colours are roles (mkBlockInfo, mkText, …; see $roles in _palette.scss),
+% defined in tokens.tex (generated from _palette.scss; listed before this file). Icons use fontawesome5 names.
+\RequirePackage{etoolbox}
+\RequirePackage[table]{xcolor}
+\RequirePackage[many]{tcolorbox}
+\RequirePackage{fontawesome5}
+
+% Floats inside blocks. A figure, table, or code listing with a caption is a
+% float, and a float can't leave a box: LaTeX stops with "Not in outer par
+% mode". Inside a block, those environments are given the [H] placement of
+% the float package ("here, exactly"), which builds the float in place; any
+% placement written in the source is replaced. Captions, numbering, and labels
+% work as usual. Outside blocks, floats are untouched.
+\RequirePackage{float}
+\makeatletter
+\newcommand{\mk@forceH}[1]{%
+  \@ifundefined{#1}{}{%
+    \expandafter\let\csname mk@orig@#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\def\csname #1\endcsname{%
+      \@ifnextchar[{\mk@dropplacement{#1}}{\csname mk@orig@#1\endcsname[H]}}%
+  }%
+}
+\def\mk@dropplacement#1[#2]{\csname mk@orig@#1\endcsname[H]}
+\newcommand{\mkFloatsHere}{%
+  \mk@forceH{figure}%
+  \mk@forceH{table}%
+  \mk@forceH{codelisting}%
+}
+\makeatother
+
+% LaTeX environments that mimic HTML SCSS
+\newcommand{\definecustomblock}[3]{%
+  \newtcolorbox{block-#1}[1]{
+    enhanced,
+    breakable,
+    arc=3mm, % 12px rounded corners
+    frame hidden,
+    borderline={1pt}{0pt}{#2, dashed}, % Dashed border!
+    colback=#2!5!white, % 5% alpha background
+    coltext=black,
+    before skip=1.25em,
+    after skip=1.25em,
+    left=4mm, right=4mm, top=3mm, bottom=3mm,
+    fonttitle=\bfseries,
+    coltitle=#2,
+    % If title is empty, skip. If not, print Icon + Title + Faint Bottom Line
+    title={\ifstrempty{##1}{}{\faIcon{#3}\hspace{0.5em}##1\\[1mm]\textcolor{#2!20}{\rule{\linewidth}{0.5pt}}\vspace*{1mm}}},
+    attach title to upper,
+    before upper pre=\mkFloatsHere % after `attach title to upper`, which sets before upper; floats stay put (see above)
+  }
+}
+
+\definecustomblock{info}{mkBlockInfo}{info-circle}
+\definecustomblock{success}{mkBlockSuccess}{check-circle}
+\definecustomblock{warning}{mkBlockWarning}{exclamation-triangle}
+\definecustomblock{danger}{mkBlockDanger}{times-circle}
+\definecustomblock{note}{mkBlockNote}{book}
+\definecustomblock{tip}{mkBlockTip}{lightbulb}
+\definecustomblock{code}{mkBlockCode}{laptop-code}
+\definecustomblock{attention}{mkBlockAttention}{bell}
+\definecustomblock{current}{mkBlockCurrent}{map-marker-alt}
+\definecustomblock{scholar}{mkBlockScholar}{graduation-cap}
+\definecustomblock{personal}{mkBlockPersonal}{user-edit}
+
+% --- Dedicated School Block ---
+\newtcolorbox{block-school}[1]{
+  enhanced,
+  breakable,
+  arc=3mm,
+  colframe=mkBlockSchoolBorder,
+  boxrule=1pt,
+  colback=mkBlockSchool!5!white,
+  coltext=black,
+  before skip=1.25em,
+  after skip=1.25em,
+  left=4mm, right=4mm, top=3mm, bottom=3mm,
+  fonttitle=\bfseries,
+  coltitle=mkText, 
+  title={\ifstrempty{#1}{}{\faIcon{graduation-cap}\hspace{0.5em}#1\\[1mm]\textcolor{mkText!20}{\rule{\linewidth}{0.5pt}}\vspace*{1mm}}},
+  attach title to upper
+}

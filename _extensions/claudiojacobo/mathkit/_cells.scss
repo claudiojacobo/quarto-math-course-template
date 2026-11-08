@@ -1,0 +1,326 @@
+/* _cells.scss — code cells, outputs, mermaid */
+/*-- scss:rules --*/
+
+/* ========================================================
+   1. Universal Cell Wrapper
+   ======================================================== */
+.cell {
+  border: 1px solid var(--mk-line);
+  border-radius: 8px;
+  overflow: hidden; 
+  margin: 2rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  background-color: var(--mk-surface); 
+}
+
+/* ========================================================
+   2. Listing Captions & Filenames (Menu Bar)
+   ======================================================== */
+.cell .quarto-float-caption,
+.cell .code-with-filename-file {
+  background-color: var(--mk-surface-strong) !important; 
+  color: var(--mk-text) !important;
+  padding: 0.6rem 1.25rem !important;
+  font-family: var(--bs-font-sans-serif) !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  border-bottom: 1px solid var(--mk-line) !important;
+  margin: 0 !important;
+  display: block !important; 
+  text-align: left !important; 
+  font-style: normal !important; 
+}
+
+.quarto-float-lst {
+  margin: 0 !important;
+}
+
+/* ========================================================
+   3. Code Input Area
+   ======================================================== */
+.cell div.sourceCode {
+  background-color: transparent !important; 
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;   /* long lines scroll; the .cell wrapper clips, so this must be here */
+}
+
+.cell div.sourceCode pre {
+  background-color: transparent !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* ========================================================
+   4. Output Console & Backgrounds
+   ======================================================== */
+.cell-output {
+  padding: 1rem 1.25rem;
+  background-color: var(--mk-surface); 
+  border-top: 2px dashed var(--mk-line-strong); 
+}
+
+.cell-output:first-child {
+  border-top: none;
+}
+
+.cell-output + .cell-output {
+  border-top: none;
+  padding-top: 0; 
+}
+
+.cell-output pre {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.cell-output-stdout code {
+  color: var(--mk-text) !important;
+  background: none !important; 
+}
+
+.cell-output-error code {
+  color: var(--mk-error) !important;
+  background: none !important;
+}
+
+/* ========================================================
+   5. Display Output & Layout Settings
+   ======================================================== */
+.cell-output-display {
+  display: block;
+  overflow-x: auto; 
+  text-align: center; 
+  background-color: var(--mk-bg) !important;
+  padding: 1.5rem;
+}
+
+/* --- Side-by-side outputs (layout-ncol): same-shaped tiles --- */
+/* Plots of different sizes otherwise leave mismatched white boxes. Each image
+   is fitted, uncropped, into a 4:3 white tile with rounded corners. */
+.cell .quarto-layout-cell img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 8px;
+}
+
+/* In a figure caption, a figure link is just a link. */
+figcaption a.figure-link {
+  display: inline;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --- Figure links: an image that opens something (figure-links.lua) --- */
+/* e.g. a 3D plot's still, linking to its interactive viewer. The link text
+   sits in a badge in the image's corner. */
+a.figure-link {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;     // no strip under the image for text descenders
+  text-decoration: none;
+
+  // The badge is placed from the link's corner, so the link must end where
+  // the image ends. A captioned image has Bootstrap's .figure-img margin
+  // below it, which would push the badge down onto the image's edge: move
+  // that gap from the image to the link.
+  > img {
+    display: block;
+    margin-bottom: 0;
+  }
+  &:has(> img.figure-img) {
+    margin-bottom: 0.5rem;
+  }
+
+  .figure-link-badge {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.6;
+    color: var(--mk-on-accent);
+    background: color-mix(in oklab, var(--mk-accent) var(--mk-ink-mix), black);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  &:hover .figure-link-badge,
+  &:focus-visible .figure-link-badge {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--mk-accent);
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+}
+
+.cell-output-display .mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+svg.mermaid-js {
+  height: auto !important; 
+  max-width: 100%;
+}
+
+figcaption {
+  text-align: center;
+  font-family: var(--bs-font-sans-serif);
+  font-style: italic;
+  color: var(--mk-text-subtle);
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+/* ========================================================
+   6. Mermaid.js Overrides & Custom Classes
+   ======================================================== */
+
+/* Base Node Defaults */
+svg.mermaid-js .node :is(rect, circle, polygon, path, ellipse) {
+  fill: var(--mk-line-faint) !important;
+  stroke: var(--mk-line-strong) !important;
+  stroke-width: 2px !important;
+}
+
+/* Base Text & Links */
+svg.mermaid-js span, 
+svg.mermaid-js p, 
+svg.mermaid-js .label,
+svg.mermaid-js .nodeLabel,
+svg.mermaid-js .edgeLabel {
+  color: var(--mk-text) !important;
+  fill: var(--mk-text) !important;
+}
+
+svg.mermaid-js .labelBkg,
+svg.mermaid-js .edgeLabel,
+svg.mermaid-js .edgeLabel p {
+  background-color: var(--mk-surface) !important;
+}
+
+/* Lines & Arrows (Using text color for high contrast) */
+svg.mermaid-js .flowchart-link,
+svg.mermaid-js .edgePath .path {
+  stroke: var(--mk-text) !important;
+  stroke-width: 2px !important;
+}
+
+svg.mermaid-js .marker path,
+svg.mermaid-js .arrowMarkerPath {
+  fill: var(--mk-text) !important;
+  stroke: var(--mk-text) !important;
+}
+
+/* --- Math & Logic Classes --- */
+svg.mermaid-js .node.solution :is(rect, circle, polygon, path, ellipse) {
+  fill: color-mix(in srgb, var(--mk-diagram-solution) 15%, var(--mk-surface)) !important;
+  stroke: var(--mk-diagram-solution) !important;
+  stroke-width: 2px !important;
+}
+
+svg.mermaid-js .node.contradiction :is(rect, circle, polygon, path, ellipse) {
+  fill: color-mix(in srgb, var(--mk-diagram-contradiction) 15%, var(--mk-surface)) !important;
+  stroke: var(--mk-diagram-contradiction) !important;
+  stroke-width: 3px !important;
+}
+
+/* --- Pipeline Classes --- */
+svg.mermaid-js .node.engine :is(rect, circle, polygon, path, ellipse) {
+  fill: color-mix(in srgb, var(--mk-diagram-engine) 15%, var(--mk-surface)) !important;
+  stroke: var(--mk-diagram-engine) !important;
+  stroke-width: 2px !important;
+}
+
+svg.mermaid-js .node.source :is(rect, circle, polygon, path, ellipse) {
+  fill: color-mix(in srgb, var(--mk-diagram-source) 15%, var(--mk-surface)) !important;
+  stroke: var(--mk-diagram-source) !important;
+  stroke-width: 2px !important;
+}
+
+svg.mermaid-js .node.auxiliary :is(rect, circle, polygon, path, ellipse) {
+  fill: color-mix(in srgb, var(--mk-diagram-auxiliary) 15%, var(--mk-surface)) !important;
+  stroke: var(--mk-diagram-auxiliary) !important;
+  stroke-dasharray: 4 4 !important;
+  stroke-width: 2px !important;
+}
+
+svg.mermaid-js .node.log :is(rect, circle, polygon, path, ellipse) {
+  fill: color-mix(in srgb, var(--mk-diagram-log) 15%, var(--mk-surface)) !important;
+  stroke: var(--mk-diagram-log) !important;
+  stroke-dasharray: 4 4 !important;
+  stroke-width: 2px !important;
+}
+
+svg.mermaid-js .node.final :is(rect, circle, polygon, path, ellipse) {
+  fill: color-mix(in srgb, var(--mk-diagram-final) 20%, var(--mk-surface)) !important;
+  stroke: var(--mk-diagram-final) !important;
+  stroke-width: 2.5px !important;
+}
+
+/* ========================================================
+   7. Mock Cells (Static Code + Output Styling)
+   ======================================================== */
+.mock-cell {
+  border: 1px solid var(--mk-line);
+  border-radius: 8px;
+  overflow: hidden; 
+  margin: 2rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  background-color: var(--mk-surface); 
+
+  /* Target ALL direct children (both <div> and <pre>) */
+  > * {
+    background-color: transparent !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 1rem 1.25rem;
+    box-shadow: none !important;
+    overflow-x: auto;
+
+    /* If Quarto nested a .sourceCode inside a .cell, strip its padding too */
+    &.sourceCode, .sourceCode {
+      padding: 0 !important;
+      margin: 0 !important;
+      background: transparent !important;
+      border: none !important;
+    }
+
+    pre {
+      background-color: transparent !important;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  /* Add the dashed divider */
+  > * ~ * {
+    border-top: 2px dashed var(--mk-line-strong) !important;
+  }
+  
+  /* Error state: Soft red background with a left accent border */
+  > .mock-error,
+  > *:has(.mock-error) {
+    background-color: color-mix(in srgb, var(--mk-error) 10%, transparent) !important;
+    box-shadow: inset 4px 0 0 var(--mk-error) !important;
+  }
+
+  /* Standard output state: Sapphire text */
+  > .mock-output,
+  > *:has(.mock-output) {
+    &, code, span {
+      color: var(--mk-text) !important;
+    }
+  }
+}

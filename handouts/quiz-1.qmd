@@ -1,9 +1,5 @@
 # Quiz 1 {.unnumbered .centered-title}
 
-::: {.content-hidden}
-{{< include ../_macros.qmd >}}
-:::
-
 ::::: {.exam}
 
 ::: {#prb-transport-eval .question points=10}

@@ -1,0 +1,155 @@
+% macros.tex — THE ONE PLACE MATH MACROS LIVE
+% ---------------------------------------------------------------------------
+% • PDF: this file is read as-is into the LaTeX preamble (the PDF format).
+% • HTML: macros-to-mathjax.py converts it into MathJax config, so every
+%   page has every macro with no per-page include. Run it after editing
+%   (the homepage's pre-render hook does this automatically).
+% Rules the converter understands: \providecommand / \newcommand /
+% \renewcommand, with [n] arguments and one [default] optional argument.
+% Nothing else (no \ifdefined, no \let, no \DeclareMathOperator).
+% ---------------------------------------------------------------------------
+
+% logic
+\providecommand{\SuchThat}{\operatorname{s.t.}}
+
+% set theory
+\providecommand{\Image}{\operatorname{im}}
+\providecommand{\Into}{\hookrightarrow}
+\providecommand{\Onto}{\twoheadrightarrow}
+\providecommand{\Isomorphism}{\xrightarrow{\cong}}
+\providecommand{\Functions}{\operatorname{Func}}
+\providecommand{\Indicator}[1]{\mathbb{1}_{#1}}
+
+% blackboard bold
+\providecommand{\Ab}{\mathbb{A}}
+\providecommand{\Bb}{\mathbb{B}}
+\providecommand{\Cb}{\mathbb{C}}
+\providecommand{\Db}{\mathbb{D}}
+\providecommand{\Eb}{\mathbb{E}}
+\providecommand{\Fb}{\mathbb{F}}
+\providecommand{\Gb}{\mathbb{G}}
+\providecommand{\Hb}{\mathbb{H}}
+\providecommand{\Ib}{\mathbb{I}}
+\providecommand{\Jb}{\mathbb{J}}
+\providecommand{\Kb}{\mathbb{K}}
+\providecommand{\Lb}{\mathbb{L}}
+\providecommand{\Mb}{\mathbb{M}}
+\providecommand{\Nb}{\mathbb{N}}
+\providecommand{\Ob}{\mathbb{O}}
+\providecommand{\Pb}{\mathbb{P}}
+\providecommand{\Qb}{\mathbb{Q}}
+\providecommand{\Rb}{\mathbb{R}}
+\providecommand{\Sb}{\mathbb{S}}
+\providecommand{\Tb}{\mathbb{T}}
+\providecommand{\Ub}{\mathbb{U}}
+\providecommand{\Vb}{\mathbb{V}}
+\providecommand{\Wb}{\mathbb{W}}
+\providecommand{\Xb}{\mathbb{X}}
+\providecommand{\Yb}{\mathbb{Y}}
+\providecommand{\Zb}{\mathbb{Z}}
+
+% group theory
+\providecommand{\Pure}[1]{\mathcal{P}_{#1}}
+\providecommand{\Braid}[1]{\mathcal{B}_{#1}}
+\providecommand{\Symmetric}[1]{\mathcal{S}_{#1}}
+\providecommand{\Cyclic}[1]{\mathcal{C}_{#1}}
+\providecommand{\Modular}[1]{\mathbb{Z}/{#1}\mathbb{Z}}
+\providecommand{\Dihedral}[1]{\mathcal{D}_{#1}}
+\providecommand{\Alternating}[1]{\mathcal{A}_{#1}}
+\providecommand{\Klein}{\mathcal{V}}
+\providecommand{\Quaternion}[1][8]{\mathcal{Q}_{#1}}
+\providecommand{\Affine}[2]{\operatorname{Aff}_{#1}({#2})}
+\providecommand{\Permutation}[1]{\operatorname{Perm}(#1)}
+\providecommand{\ConjugacyClass}[2][]{\operatorname{cl}_{#1}({#2})}
+\providecommand{\Center}[1]{\mathbf{Z}(#1)}
+\providecommand{\Normal}{\unlhd}
+\providecommand{\Acts}{⟳}
+\providecommand{\Fix}{\operatorname{Fix}}
+\providecommand{\Stabilizer}[2][]{\operatorname{Stab}_{#1}({#2})}
+\providecommand{\Orbit}[2][]{\operatorname{Orb}_{#1}({#2})}
+\providecommand{\Centralizer}[2][]{\operatorname{C}_{#1}({#2})}
+\providecommand{\Abelianization}[1]{{#1}^{\mathrm{Ab}}}
+\providecommand{\Sign}{\operatorname{sgn}}
+
+% algebra
+\providecommand{\Hom}{\operatorname{Hom}}
+\providecommand{\End}{\operatorname{End}}
+\providecommand{\Aut}{\operatorname{Aut}}
+\providecommand{\Identity}{\mathbb{1}}
+\providecommand{\Id}{\mathbb{I}}
+
+% fields
+\providecommand{\Characteristic}{\operatorname{char}}
+
+% linear algebra
+\providecommand{\Mat}{\operatorname{Mat}}
+\providecommand{\Span}{\operatorname{Span}}
+\providecommand{\Null}{\operatorname{Null}}
+\providecommand{\Rank}{\operatorname{rank}}
+\providecommand{\Trace}{\operatorname{Tr}}
+\providecommand{\Diagonal}{\operatorname{Diag}}
+\providecommand{\GL}{\operatorname{GL}}
+\providecommand{\SL}{\operatorname{SL}}
+\providecommand{\Orthogonal}{\operatorname{O}}
+\providecommand{\SO}{\operatorname{SO}}
+\providecommand{\Unitary}{\operatorname{U}}
+\providecommand{\SU}{\operatorname{SU}}
+\providecommand{\PU}{\operatorname{PU}}
+\providecommand{\PSL}{\operatorname{PSL}}
+\providecommand{\PGL}{\operatorname{PGL}}
+\providecommand{\PSU}{\operatorname{PSU}}
+\providecommand{\I}{\mathrm{I}}
+
+\providecommand{\SymmetricPower}[2][]{\operatorname{Sym}^{#1}({#2})}
+\providecommand{\ExteriorPower}[2][]{\wedge^{#1}({#2})}
+
+% fourier theory
+\providecommand{\ClassFunctions}[1]{\mathscr{C}({#1})}
+\providecommand{\ContinuousFunctions}[1][]{C^{#1}}
+\providecommand{\IntegrableFunctions}[2][2]{L^{#1}({#2})}
+\providecommand{\Fourier}{\mathscr{F}}
+
+% algebraic geometry
+\providecommand{\Disc}[1]{\mathrm{disc}({#1})}
+\providecommand{\Res}[2]{\mathrm{Res}({#1}, {#2})}
+\providecommand{\Gal}[1]{\mathrm{Gal}(#1)}
+\providecommand{\RationalTo}{\dashrightarrow}
+\providecommand{\Blowup}[2]{\mathrm{Bl}_{#1}({#2})}
+\providecommand{\Grassmannian}[2]{\mathrm{Gr}_{#1}({#2})}
+\providecommand{\Frob}[1]{\mathrm{Frob}_{#1}}
+\providecommand{\Poly}[2]{\mathrm{Poly}_{#1}({#2})}
+
+% category theory
+\providecommand{\CatName}[1]{\mathsf{#1}}
+\providecommand{\VectorSpaces}[1]{\CatName{Vect}_{#1}}
+
+% resolvent degree
+\providecommand{\RD}{\mathrm{RD}}
+
+% complex analysis
+\providecommand{\Abs}[1]{\left|{#1}\right|}
+\providecommand{\Arg}[1]{\mathrm{Arg}\left({#1}\right)} % principal argument; lowercase \arg is LaTeX's own
+
+% vectors
+\providecommand{\Vector}[1]{\langle #1 \rangle}
+\providecommand{\Norm}[1]{\left\lVert #1 \right\rVert}
+\providecommand{\Iv}{\mathbf{i}}
+\providecommand{\Jv}{\mathbf{j}}
+\providecommand{\Kv}{\mathbf{k}}
+\providecommand{\Comp}[2]{\operatorname{comp}_{#1}\left(#2\right)}
+\providecommand{\Proj}[2]{\operatorname{proj}_{#1}\left(#2\right)}
+
+% calculus (derivatives come from diffcoeff)
+% Write diffcoeff's own syntax: \diff[2]{y}{x}, \diffp[2,3]{f}{x,y}, \difc[2]{f}{x,y}, \difcp{f}{x}, \dl{x,y,z}, \diff{y}{x}[0].
+% • PDF: the real package (loaded first by packages.tex) typesets them.
+% • HTML: diffcoeff.lua rewrites them into plain TeX before MathJax runs, so the optional orders and comma lists work there too.
+% The lines below, marked "% diffcoeff", are only a last-resort fallback for math the filter cannot see (e.g. inside raw HTML); they understand just the simplest forms. tools/check-macros.py treats marked names as expected.
+\providecommand{\dl}[1]{\mathop{}\!\mathrm{d}{#1}}   % diffcoeff
+\providecommand{\diff}[2]{\frac{\mathrm{d} #1}{\mathrm{d} #2}}   % diffcoeff
+\providecommand{\diffp}[2]{\frac{\partial #1}{\partial #2}}   % diffcoeff
+\providecommand{\difc}[2]{\mathrm{d}_{#2} #1}   % diffcoeff
+\providecommand{\difcp}[2]{\partial_{#2} #1}   % diffcoeff
+\providecommand{\Divergence}{\nabla \cdot}
+\providecommand{\Curl}{\nabla \times}
+\providecommand{\Gradient}{\nabla}
+\providecommand{\D}{\mathrm{D}}

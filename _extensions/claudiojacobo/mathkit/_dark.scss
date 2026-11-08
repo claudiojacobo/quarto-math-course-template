@@ -1,0 +1,7 @@
+/* _dark.scss — the one Bootstrap setting mathkit changes in Darkly */
+/*-- scss:defaults --*/
+
+// Secondary text (Quarto's current breadcrumb; section numbers via
+// _base.scss). Darkly's #888 is 4.49:1 on its background, just short of
+// WCAG AA; this gray is 7.7:1.
+$text-muted: #adb5bd;

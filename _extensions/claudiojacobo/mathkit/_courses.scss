@@ -1,0 +1,50 @@
+/* _courses.scss */
+/*-- scss:rules --*/
+
+/* ===== Quarto Numbering Workaround ===== 
+   Hides hardcoded Quarto numbers visually while preserving 
+   internal @sec cross-referencing logic across the book. 
+   Requires `hide-appendix` class on the body and a `--clean-title` CSS var.
+*/
+
+body.hide-appendix {
+  
+  /* 1. Hide the hardcoded H1 text, but keep its layout footprint */
+  .quarto-title h1.title {
+    visibility: hidden;
+    position: relative;
+    
+    /* 2. Overlay the clean title using the CSS variable */
+    &::after {
+      content: var(--clean-title);
+      visibility: visible;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+
+  /* 3. Hide numbering in the body headers (H2, H3, etc.) */
+  .header-section-number {
+    display: none !important;
+  }
+
+  /* 4. Hide numbering in the right-hand floating TOC */
+  .toc-section-number {
+    display: none !important;
+  }
+}
+
+/* 5. Hide the prefix from the left sidebar HTML globally.
+   Note: We use the href so it stays hidden even when viewing other 
+   pages in the book! Add more selectors here separated by commas. */
+a[href*="syllabus"] .chapter-number,
+a[href*="character-hunt"] .chapter-number {
+  display: none !important;
+}
+
+/* --- Global Button Transitions --- */
+/* Brought over from your old CSS to keep interactive elements smooth */
+button, .btn {
+  transition: all 0.2s ease;
+}

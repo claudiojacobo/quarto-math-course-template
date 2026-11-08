@@ -1,8 +1,4 @@
 # References {.unnumbered}
 
-::: {.content-hidden}
-{{< include _macros.qmd >}}
-:::
-
 ::: {#refs}
 :::

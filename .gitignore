@@ -3,6 +3,10 @@ _site/
 _instructor/
 _accessible/
 .quarto/
+_freeze/
+
+# Single-document PDFs written by build.sh (exports-directory in _variables.yml)
+Exports/
 
 # Python virtual environment
 .venv/

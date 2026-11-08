@@ -1,3 +1,16 @@
+"""chopper.py — split the course's PDF into one PDF per document.
+
+Quarto builds the whole course as one PDF (in _instructor/ or _site/). This
+script reads that PDF's bookmarks and saves each document after the lecture
+notes (each homework, exam, handout, the syllabus, …) as its own PDF in the
+folder named by `exports-directory` in _variables.yml (default: Exports/),
+then opens that folder. build.sh runs it after every PDF build:
+
+    python3 .scripts/chopper.py _instructor     # or _site for the student build
+
+The notes themselves are skipped (they are published as a whole), as are
+Quarto's structural pages listed in ARTIFACTS.
+"""
 import re
 import os
 import sys

@@ -1,6 +1,6 @@
 # Contributing
 
-First off, thank you for considering a contribution! Whether you're fixing a typo in the README, have advice on accessibility, or are a Quarto expert who can help me figure out commutative diagrams, your help is appreciated.
+First off, thank you for considering a contribution! Whether you're fixing a typo in the README, have advice on accessibility, or are a Quarto expert, your help is appreciated. Most of the machinery (filters, styles, macros) lives in the [mathkit extension](https://github.com/claudiojacobo/quarto-extensions); improvements to it are welcome there.
 
 ## 🗺️ How Can I Help?
 

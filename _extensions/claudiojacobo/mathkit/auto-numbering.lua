@@ -15,7 +15,8 @@ function Header(el)
       
       if hw_id then
         -- Build the raw LaTeX block to inject.
-        -- We use @ifundefined checks across the board so this template can be safely reused in courses that do not use custom exercise environments or code blocks.
+        -- We use @ifundefined checks across the board so this template can be safely 
+        -- reused in courses that do not use custom exercise environments or code blocks.
         local latex_snippet = string.format([[
 \pagestyle{plain}
 \setcounter{page}{1}

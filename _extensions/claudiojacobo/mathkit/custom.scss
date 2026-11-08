@@ -1,0 +1,12 @@
+/* custom.scss — mathkit's stylesheet: the shared rules on top of Bootstrap */
+
+/*-- scss:defaults --*/
+@import "palette";
+
+/*-- scss:rules --*/
+@import "roles";       // publishes $roles as --mk-* custom properties
+@import "base";
+@import "blocks";
+@import "theorems";
+@import "cells";
+@import "courses";     // book-only tweaks (appendix numbering workaround); no effect elsewhere

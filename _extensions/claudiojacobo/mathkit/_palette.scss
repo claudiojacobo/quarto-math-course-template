@@ -1,0 +1,104 @@
+/* _palette.scss — mathkit's colors, and which color plays each role
+   ----------------------------------------------------------------------
+   mathkit looks like stock Quarto: Bootstrap's own colors in light mode
+   (theme `default`) and Darkly in dark mode. The shared stylesheets never
+   name these colors; they ask for roles ($roles below), which _roles.scss
+   publishes as --mk-* properties and roles.py writes to tokens.tex for PDF.
+
+   To restyle a site: in the project's own SCSS (scss:defaults section),
+   redefine $mk-light / $mk-dark, or $roles. The contrast of every
+   header, link and button was checked against WCAG AA (4.5:1); keep that
+   in mind when changing colors.
+   This file must contain only variables (no CSS rules).
+   ---------------------------------------------------------------------- */
+
+/*-- scss:defaults --*/
+
+// Light mode: Bootstrap 5 colors. Where Bootstrap's main shade is too pale
+// to be darkened into readable text, a darker Bootstrap shade is used:
+// yellow-700, orange-600, teal-700 and cyan-700.
+$mk-light: (
+  "blue": #0d6efd, "indigo": #6610f2, "purple": #6f42c1, "pink": #d63384,
+  "red": #dc3545, "orange": #ca6510, "yellow": #997404, "green": #198754,
+  "teal": #13795b, "cyan": #087990, "gray": #6c757d,
+  "navy": #1f3a5f, "gold": #c9a227,                // the school block; set your own
+  // neutrals (Bootstrap's grays)
+  "bg": #ffffff, "inverse": #000000, "text": #212529, "text-subtle": #595c5f,
+  "surface": #f8f9fa, "surface-strong": #e9ecef, "line-faint": #e9ecef,
+  "line": #dee2e6, "line-strong": #adb5bd, "on-accent": #ffffff, "error": #b02a37,
+  // a block's background opacity; how much of an accent is kept when it is
+  // darkened (mixed with black) for text: 85% passes AA for every color above
+  "block-alpha": 10%, "ink-mix": 85%,
+);
+
+// Dark mode: Bootstrap's dark-mode tints of the same colors (indigo-200 for
+// indigo, which is too dark on Darkly's background), and Darkly's grays.
+$mk-dark: (
+  "blue": #6ea8fe, "indigo": #c29ffa, "purple": #a98eda, "pink": #e685b5,
+  "red": #ea868f, "orange": #feb272, "yellow": #ffda6a, "green": #75b798,
+  "teal": #79dfc1, "cyan": #6edff6, "gray": #adb5bd,
+  "navy": #8fb4e6, "gold": #e0c060,
+  "bg": #222222, "inverse": #ffffff, "text": #ffffff, "text-subtle": #adb5bd,
+  "surface": #303030, "surface-strong": #444444, "line-faint": #3a3a3a,
+  "line": #444444, "line-strong": #888888, "on-accent": #222222, "error": #ea868f,
+  "block-alpha": 10%, "ink-mix": 100%,             // the tints are already light enough
+);
+
+// The maps the roles are looked up in, for each mode (see _roles.scss).
+$role-maps-light: ($mk-light,);
+$role-maps-dark: ($mk-dark,);
+
+// Roles: every color the shared stylesheets and blocks.tex use, and which
+// key of the maps above plays it. Both extensions define the same roles.
+$roles: (
+  // Page and surfaces
+  "bg":                  "bg",             // page background
+  "inverse":             "inverse",        // the opposite of the background
+  "text":                "text",
+  "text-subtle":         "text-subtle",    // figure captions
+  "surface":             "surface",        // code cells, diagram node fills
+  "surface-strong":      "surface-strong", // code-cell caption bar
+  "line-faint":          "line-faint",     // diagram nodes
+  "line":                "line",           // code-cell borders
+  "line-strong":         "line-strong",    // dashed divider before cell output, diagram node borders
+  "accent":              "blue",           // figure-link badges and focus rings
+  "on-accent":           "on-accent",      // text on a filled accent (buttons, badges)
+  "error":               "error",          // error output in code cells
+  // Tuning
+  "block-alpha":         "block-alpha",
+  "ink-mix":             "ink-mix",
+  // Blocks (::: {.block-info} …)
+  "block-info":          "cyan",
+  "block-code":          "gray",
+  "block-success":       "green",
+  "block-attention":     "yellow",
+  "block-warning":       "orange",
+  "block-danger":        "red",
+  "block-note":          "purple",
+  "block-tip":           "pink",
+  "block-current":       "blue",
+  "block-scholar":       "indigo",
+  "block-personal":      "teal",
+  "block-school":        "navy",
+  "block-school-border": "gold",
+  // Theorem-like environments
+  "env-definition":      "blue",
+  "env-theorem":         "teal",
+  "env-proposition":     "indigo",
+  "env-lemma":           "cyan",
+  "env-corollary":       "green",
+  "env-exercise":        "yellow",
+  "env-question":        "orange",
+  "env-counter-example": "red",
+  "env-proof":           "gray",
+  "env-remark":          "pink",
+  "env-solution":        "gray",
+  // Mermaid node classes (A["x"]:::solution)
+  "diagram-solution":      "green",
+  "diagram-contradiction": "red",
+  "diagram-engine":        "red",
+  "diagram-source":        "blue",
+  "diagram-auxiliary":     "orange",
+  "diagram-log":           "purple",
+  "diagram-final":         "green",
+);

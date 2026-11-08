@@ -1,0 +1,72 @@
+/* _theorems.scss */
+/*-- scss:rules --*/
+
+/* --- Quarto Math Title Fixes --- */
+.definition-title, .theorem-title, .proposition-title, 
+.lemma-title, .corollary-title, .question-title, 
+.counter-example-title, .proof-title, .exercise-title, .remark-title {
+  color: var(--theme-ink);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* --- Environment Mappings --- */
+/* Quarto gives every theorem-like div the class `theorem` as well as its own
+   (`theorem definition`, `theorem lemma`, …), so .theorem must come first:
+   the rule listed later wins. */
+.theorem         { @extend .custom-block-base; --theme-color: var(--mk-env-theorem); }
+.definition      { @extend .custom-block-base; --theme-color: var(--mk-env-definition); }
+.proposition     { @extend .custom-block-base; --theme-color: var(--mk-env-proposition); }
+.lemma           { @extend .custom-block-base; --theme-color: var(--mk-env-lemma); }
+.corollary       { @extend .custom-block-base; --theme-color: var(--mk-env-corollary); }
+.exercise        { @extend .custom-block-base; --theme-color: var(--mk-env-exercise); }
+.question        { @extend .custom-block-base; --theme-color: var(--mk-env-question); }
+.counter-example { @extend .custom-block-base; --theme-color: var(--mk-env-counter-example); }
+
+/* --- Proof Environment & Tombstones --- */
+.proof { 
+  @extend .custom-block-base; 
+  --theme-color: var(--mk-env-proof);
+ 
+  --mk-block-alpha: 8%; 
+  display: flow-root; 
+  
+  /* Apply the tombstone ONLY if it is not a remark AND not a solution */
+  &:not(.remark):not(.solution)::after {
+    content: var(--tombstone-icon, "\F584"); /* Default Square */
+    font-family: "bootstrap-icons";
+    float: right;
+    line-height: 1;
+    margin-top: 0.5rem;
+    color: var(--theme-ink);
+    font-size: 1.1em;
+  }
+}
+
+/* Because Quarto gives remarks and solutions the .proof class, we need a 
+   higher specificity selector to successfully override the color! */
+
+.proof.remark {
+  --theme-color: var(--mk-env-remark);
+ 
+}
+.proof.solution {
+  --theme-color: var(--mk-env-solution);
+}
+
+/* --- Bootstrap Icon Tombstone Overrides --- */
+.proof.smile    { --tombstone-icon: "\F327"; } /* bi-emoji-smile */
+.proof.cool     { --tombstone-icon: "\F329"; } /* bi-emoji-sunglasses */
+.proof.heart    { --tombstone-icon: "\F701"; } /* bi-arrow-through-heart */
+.proof.idk      { --tombstone-icon: "\F50B"; } /* bi-question-square */
+.proof.thumbs   { --tombstone-icon: "\F407"; } /* bi-hand-thumbs-up */
+.proof.robot    { --tombstone-icon: "\F6B1"; } /* bi-robot */
+.proof.moon     { --tombstone-icon: "\F496"; } /* bi-moon-stars */
+.proof.exercise { --tombstone-icon: "\F32B"; } /* bi-emoji-wink */
+.proof.upside   { --tombstone-icon: "\F326"; } /* bi-emoji-smile-upside-down */
+.proof.hard     { --tombstone-icon: "\F319"; } /* bi-emoji-dizzy */
+.proof.cloud    { --tombstone-icon: "\F2C1"; } /* bi-cloud */
+.proof.surprise { --tombstone-icon: "\F7AC"; } /* bi-emoji-surprise */
+.proof.tear     { --tombstone-icon: "\F7B2"; } /* bi-emoji-tear */
+.proof.rocket   { --tombstone-icon: "\F845"; } /* bi-rocket-takeoff */

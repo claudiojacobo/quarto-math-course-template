@@ -1,0 +1,13 @@
+# Accessible PDF: tagged (structure tree), PDF/UA-2, with MathML for every
+# formula (see "Accessible PDF" in the mathkit extension's README). Much slower
+# than a plain build: three LaTeX runs. Build it on purpose with
+#   ./build.sh --tagged          (instructor PDF)
+#   ./build.sh --tagged --student
+# then check it with veraPDF (PDF/UA-2 profile).
+format:
+  mathkit-pdf:
+    tagged-pdf: true
+    # Tagging numbers link annotations after the page count of the *previous*
+    # LaTeX run. Quarto stops rerunning before that count has settled, so the
+    # last pages lose their tags; one more run than Quarto would do avoids it.
+    latex-min-runs: 3

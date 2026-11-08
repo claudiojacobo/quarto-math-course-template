@@ -1,0 +1,43 @@
+title: mathkit
+author: Claudio Gómez-Gonzáles
+version: 0.7.0
+quarto-required: ">=1.6.0"
+contributes:
+  formats:
+    common:
+      # Filters run in this order for every format.
+      # The first two are format-aware (diffcoeff.lua rewrites only for HTML; blocks.lua only for LaTeX).
+      # auto-numbering must run before centered-title, which replaces the header it reads.
+      filters:
+        - diffcoeff.lua           # diffcoeff's \diff[2]{y}{x} etc. → plain TeX for MathJax
+        - blocks.lua              # .block-* divs → LaTeX environments
+        - auto-numbering.lua      # "Homework N" titles reset exercise counters to N.1, N.2, … (PDF)
+        - centered-title.lua      # {.centered-title} h1 → centred, unnumbered title page (PDF)
+        - gradetable.lua          # {.exam}/{.question}/{.part} → numbered problems, points, grade table
+        - hide-lines.lua          # code lines ending in "#hide" run but aren't shown (or copied)
+        - figure-links.lua        # a {.figure-link} output after an image becomes a link on that image
+        - site-links.lua          # {.site-link site-path=…} links become absolute URLs in PDF (after figure-links)
+        - project-macros.lua      # the project's own macros.tex, in PDF and on web pages
+    html:
+      theme:
+        light: [default, custom.scss]
+        dark:  [darkly, _dark.scss, custom.scss]
+      respect-user-color-scheme: true
+      html-math-method: mathjax
+      include-in-header:
+        - mathjax-config.html     # generated from macros.tex: every macro on every page
+        - copy-math-as-tex.html   # copying rendered math puts its TeX source on the clipboard
+        - clean-tab-title.html    # strips "Appendix A – " from browser-tab titles in books
+      include-after-body:
+        - figure-links.html       # captioned figures' links become corner badges (see figure-links.lua)
+      toc: true
+    pdf:
+      pdf-engine: lualatex
+      include-in-header:
+        - packages.tex            # math packages (incl. diffcoeff) — must come before macros.tex
+        - images.tex              # images fit their column (side-by-side rows match)
+        - macros.tex              # \providecommand defers to diffcoeff's commands where they exist
+        - tokens.tex              # role colours, generated from _palette.scss by roles.py
+        - blocks.tex              # the .block-* environments (tcolorbox)
+      template-partials:
+        - doc-class.tex           # \DocumentMetadata for tagged PDF, only when tagged-pdf: true

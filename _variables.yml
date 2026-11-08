@@ -24,4 +24,5 @@ materials:
     title: "The Ideal Mathematician" 
     author: "Philip Davis and Reuben Hersh"
 
-exports-directory: "~/Work/2025-2026/Math 401/Exports"
+# Where build.sh puts the single-document PDFs (relative to this folder, or ~/…)
+exports-directory: "Exports"

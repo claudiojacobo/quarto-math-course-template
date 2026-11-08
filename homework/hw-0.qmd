@@ -1,10 +1,6 @@
 # Homework 0 {.centered-title}
 <!-- We expect Homework to be placed in the Appendix. To parse properly via auto-numbering.lua, assignments MUST be at heading level 1 (#), use the .centered-title class, and have a title of the form "Homework n" -->
 
-::: {.content-hidden}
-{{< include ../_macros.qmd >}}
-:::
-
 {{< include _homework-header.qmd >}}
 
 ::: {#exr-hypotenuse-calculation} 

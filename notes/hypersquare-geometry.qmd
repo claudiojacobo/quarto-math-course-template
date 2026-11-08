@@ -1,9 +1,5 @@
 # Hypersquare Geometry {#sec-hypersquares}
 
-::: {.content-hidden}
-{{< include ../_macros.qmd >}}
-:::
-
 Having established the classical framework in @sec-polytopes, we now consider a modification in which the ambient space is no longer assumed to carry a Riemannian metric. A *hypersquare* will refer, informally, to an $n$-cube equipped with a combinatorial structure that replaces the usual smooth notions of distance and curvature.
 
 ::: {#def-hypersquare}
@@ -13,10 +9,34 @@ An $n$-dimensional *hypersquare* consists of a combinatorial $n$-cube $Q$ togeth
 2. A coherence condition on each 2-face requiring that the composition of transport operators around the boundary of the face is equal to a fixed face-dependent automorphism.
 :::
 
-Instead of a metric tensor, we therefore work with these discrete transport operators and their associated coherence data. 
+We write $\Hsq{n}$ for an $n$-dimensional hypersquare. Instead of a metric tensor, we therefore work with these discrete transport operators and their associated coherence data.
+
+::: {.block-tip}
+::: {.block-header}
+A note on notation
+:::
+The macro `\Hsq` is defined in this course's own `macros.tex`, at the root of the project; macros like `\Rb` come with the mathkit extension. Blocks like this one (`block-tip`, `block-info`, `block-warning`, …) look the same on the web and in the PDF.
+:::
 
 ::: {#rem-no-differentiability}
 This setup allows us to speak of parallel transport and holonomy without requiring differentiability!
+:::
+
+Every 2-face imposes one coherence condition, so @prp-cube-faces counts them for us.
+
+::: {#cor-coherence-count}
+A hypersquare $\Hsq{n}$ satisfies exactly $\binom{n}{2} 2^{n-2}$ coherence conditions.
+:::
+
+::: {.proof .smile}
+Apply @prp-cube-faces with $k = 2$. (On the website this proof ends with a smile instead of a square: it is written `::: {.proof .smile}`.)
+:::
+
+::: {.block-warning}
+::: {.block-header}
+Coherence is not commutativity
+:::
+The condition on a 2-face fixes the composition *around* the face, not the order of the individual transports. Two transport operators along adjacent edges need not commute.
 :::
 
 ## Fundamental Phenomena {#sec-hypersquares-fundamental-phenomena}

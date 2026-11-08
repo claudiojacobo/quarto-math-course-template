@@ -1,7 +1,20 @@
 # Preface {.unnumbered}
 
-::: {.content-hidden}
-{{< include _macros.qmd >}}
-:::
+Welcome to *Math 401: Non-Riemannian Hypersquares*! These notes follow the course day by day. The homework, practice exams and syllabus are in the appendices, and every theorem, exercise and exam question is linked: @thm-pythagoras is a click away from anywhere in the course.
 
-A brief description of the course, preface to the lecture notes, list of available resources, and so on, goes here.
+The website and the PDF (the download button in the sidebar) are made from the same files, so they always agree.
+
+::: {.block-info}
+::: {.block-header}
+About this template
+:::
+This is a sample course, made up to show what the template can do. Look for:
+
++ theorems, examples and proofs in the notes, with a table in @sec-polytopes and colored blocks in @sec-hypersquares;
++ a math macro defined by the course itself, $\Hsq{n}$, next to ones that come with the template, like $\Rb^n$;
++ homework with solutions that only the instructor build shows (@exr-hypotenuse-calculation);
++ a practice exam whose solutions open with a click online but stay out of the PDF, and a midterm and quiz with automatic grade tables (instructor build only);
++ a syllabus filled in from `_variables.yml`.
+
+Delete this block when you make the course your own.
+:::

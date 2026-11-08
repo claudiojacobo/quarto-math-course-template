@@ -1,0 +1,267 @@
+<!-- GENERATED from macros.tex by macros-to-mathjax.py. Do not edit; edit macros.tex. -->
+<script>
+  window.MathJax = {
+    loader: {load: ['[tex]/mathtools', '[tex]/colortbl']},
+    tex: {
+      packages: {'[+]': ['mathtools', 'colortbl']},
+      // 112 macros, shared with the PDF preamble via macros.tex,
+      // then the project's own (macros.tex at its root; project-macros.lua)
+      macros: Object.assign({
+  "SuchThat": "\\operatorname{s.t.}",
+  "Image": "\\operatorname{im}",
+  "Into": "\\hookrightarrow",
+  "Onto": "\\twoheadrightarrow",
+  "Isomorphism": "\\xrightarrow{\\cong}",
+  "Functions": "\\operatorname{Func}",
+  "Indicator": [
+    "\\mathbb{1}_{#1}",
+    1
+  ],
+  "Ab": "\\mathbb{A}",
+  "Bb": "\\mathbb{B}",
+  "Cb": "\\mathbb{C}",
+  "Db": "\\mathbb{D}",
+  "Eb": "\\mathbb{E}",
+  "Fb": "\\mathbb{F}",
+  "Gb": "\\mathbb{G}",
+  "Hb": "\\mathbb{H}",
+  "Ib": "\\mathbb{I}",
+  "Jb": "\\mathbb{J}",
+  "Kb": "\\mathbb{K}",
+  "Lb": "\\mathbb{L}",
+  "Mb": "\\mathbb{M}",
+  "Nb": "\\mathbb{N}",
+  "Ob": "\\mathbb{O}",
+  "Pb": "\\mathbb{P}",
+  "Qb": "\\mathbb{Q}",
+  "Rb": "\\mathbb{R}",
+  "Sb": "\\mathbb{S}",
+  "Tb": "\\mathbb{T}",
+  "Ub": "\\mathbb{U}",
+  "Vb": "\\mathbb{V}",
+  "Wb": "\\mathbb{W}",
+  "Xb": "\\mathbb{X}",
+  "Yb": "\\mathbb{Y}",
+  "Zb": "\\mathbb{Z}",
+  "Pure": [
+    "\\mathcal{P}_{#1}",
+    1
+  ],
+  "Braid": [
+    "\\mathcal{B}_{#1}",
+    1
+  ],
+  "Symmetric": [
+    "\\mathcal{S}_{#1}",
+    1
+  ],
+  "Cyclic": [
+    "\\mathcal{C}_{#1}",
+    1
+  ],
+  "Modular": [
+    "\\mathbb{Z}/{#1}\\mathbb{Z}",
+    1
+  ],
+  "Dihedral": [
+    "\\mathcal{D}_{#1}",
+    1
+  ],
+  "Alternating": [
+    "\\mathcal{A}_{#1}",
+    1
+  ],
+  "Klein": "\\mathcal{V}",
+  "Quaternion": [
+    "\\mathcal{Q}_{#1}",
+    1,
+    "8"
+  ],
+  "Affine": [
+    "\\operatorname{Aff}_{#1}({#2})",
+    2
+  ],
+  "Permutation": [
+    "\\operatorname{Perm}(#1)",
+    1
+  ],
+  "ConjugacyClass": [
+    "\\operatorname{cl}_{#1}({#2})",
+    2,
+    ""
+  ],
+  "Center": [
+    "\\mathbf{Z}(#1)",
+    1
+  ],
+  "Normal": "\\unlhd",
+  "Acts": "⟳",
+  "Fix": "\\operatorname{Fix}",
+  "Stabilizer": [
+    "\\operatorname{Stab}_{#1}({#2})",
+    2,
+    ""
+  ],
+  "Orbit": [
+    "\\operatorname{Orb}_{#1}({#2})",
+    2,
+    ""
+  ],
+  "Centralizer": [
+    "\\operatorname{C}_{#1}({#2})",
+    2,
+    ""
+  ],
+  "Abelianization": [
+    "{#1}^{\\mathrm{Ab}}",
+    1
+  ],
+  "Sign": "\\operatorname{sgn}",
+  "Hom": "\\operatorname{Hom}",
+  "End": "\\operatorname{End}",
+  "Aut": "\\operatorname{Aut}",
+  "Identity": "\\mathbb{1}",
+  "Id": "\\mathbb{I}",
+  "Characteristic": "\\operatorname{char}",
+  "Mat": "\\operatorname{Mat}",
+  "Span": "\\operatorname{Span}",
+  "Null": "\\operatorname{Null}",
+  "Rank": "\\operatorname{rank}",
+  "Trace": "\\operatorname{Tr}",
+  "Diagonal": "\\operatorname{Diag}",
+  "GL": "\\operatorname{GL}",
+  "SL": "\\operatorname{SL}",
+  "Orthogonal": "\\operatorname{O}",
+  "SO": "\\operatorname{SO}",
+  "Unitary": "\\operatorname{U}",
+  "SU": "\\operatorname{SU}",
+  "PU": "\\operatorname{PU}",
+  "PSL": "\\operatorname{PSL}",
+  "PGL": "\\operatorname{PGL}",
+  "PSU": "\\operatorname{PSU}",
+  "I": "\\mathrm{I}",
+  "SymmetricPower": [
+    "\\operatorname{Sym}^{#1}({#2})",
+    2,
+    ""
+  ],
+  "ExteriorPower": [
+    "\\wedge^{#1}({#2})",
+    2,
+    ""
+  ],
+  "ClassFunctions": [
+    "\\mathscr{C}({#1})",
+    1
+  ],
+  "ContinuousFunctions": [
+    "C^{#1}",
+    1,
+    ""
+  ],
+  "IntegrableFunctions": [
+    "L^{#1}({#2})",
+    2,
+    "2"
+  ],
+  "Fourier": "\\mathscr{F}",
+  "Disc": [
+    "\\mathrm{disc}({#1})",
+    1
+  ],
+  "Res": [
+    "\\mathrm{Res}({#1}, {#2})",
+    2
+  ],
+  "Gal": [
+    "\\mathrm{Gal}(#1)",
+    1
+  ],
+  "RationalTo": "\\dashrightarrow",
+  "Blowup": [
+    "\\mathrm{Bl}_{#1}({#2})",
+    2
+  ],
+  "Grassmannian": [
+    "\\mathrm{Gr}_{#1}({#2})",
+    2
+  ],
+  "Frob": [
+    "\\mathrm{Frob}_{#1}",
+    1
+  ],
+  "Poly": [
+    "\\mathrm{Poly}_{#1}({#2})",
+    2
+  ],
+  "CatName": [
+    "\\mathsf{#1}",
+    1
+  ],
+  "VectorSpaces": [
+    "\\CatName{Vect}_{#1}",
+    1
+  ],
+  "RD": "\\mathrm{RD}",
+  "Abs": [
+    "\\left|{#1}\\right|",
+    1
+  ],
+  "Arg": [
+    "\\mathrm{Arg}\\left({#1}\\right)",
+    1
+  ],
+  "Vector": [
+    "\\langle #1 \\rangle",
+    1
+  ],
+  "Norm": [
+    "\\left\\lVert #1 \\right\\rVert",
+    1
+  ],
+  "Iv": "\\mathbf{i}",
+  "Jv": "\\mathbf{j}",
+  "Kv": "\\mathbf{k}",
+  "Comp": [
+    "\\operatorname{comp}_{#1}\\left(#2\\right)",
+    2
+  ],
+  "Proj": [
+    "\\operatorname{proj}_{#1}\\left(#2\\right)",
+    2
+  ],
+  "dl": [
+    "\\mathop{}\\!\\mathrm{d}{#1}",
+    1
+  ],
+  "diff": [
+    "\\frac{\\mathrm{d} #1}{\\mathrm{d} #2}",
+    2
+  ],
+  "diffp": [
+    "\\frac{\\partial #1}{\\partial #2}",
+    2
+  ],
+  "difc": [
+    "\\mathrm{d}_{#2} #1",
+    2
+  ],
+  "difcp": [
+    "\\partial_{#2} #1",
+    2
+  ],
+  "Divergence": "\\nabla \\cdot",
+  "Curl": "\\nabla \\times",
+  "Gradient": "\\nabla",
+  "D": "\\mathrm{D}"
+}, window.mkProjectMacros || {})
+    },
+    output: {
+      // Let long display equations wrap on narrow screens (MathJax 4).
+      // Readers can override per page: right-click an equation →
+      // Math Settings → Wide Expressions.
+      displayOverflow: 'linebreak',
+      linebreaks: { inline: true, width: '100%', lineleading: 0.2 }
+    }
+  };
+</script>

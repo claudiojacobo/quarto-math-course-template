@@ -11,10 +11,6 @@ include-in-header:
 
 # Syllabus {.centered-title}
 
-::: {.content-hidden}
-{{< include ../_macros.qmd >}}
-:::
-
 {{< include _syllabus-header.qmd >}}
 
 ### Websites
@@ -36,7 +32,7 @@ include-in-header:
 + Begin homework immediately after it is assigned,
 + Visit my office hours frequently and ask lots of questions!
 
-:::: {.block-announcement}
+:::: {.block-school}
 ::: {.block-header}
 Talk to me!
 :::
@@ -98,7 +94,7 @@ Math is a collaborative activity! Even when we publish a paper alone, mathematic
 I understand the increasing ubiquity of these technologies, but I discourage their use in this course. While I can imagine some applications---helping you experiment with SageMath, for example---I encourage you to always critically reflect on whose labor is being replaced or which relationships lose out when you invoke these tools. If you are interested in thinking about sociological dimensions of automation and mathematical labor, [here's a good place to start](https://arxiv.org/pdf/2309.11457). Remember, I ask you to grapple with complex ideas in this course because we grow from productive struggle.
 
 
-:::: {.block-announcement}
+:::: {.block-school}
 ::: {.block-header}
 Usage of LLMs
 :::
@@ -127,7 +123,7 @@ There are no restrictions on phones, tablets, laptops, or other electronic equip
 
 Be aware that all Carleton faculty and staff members, with the exception of Chaplains and SHAC staff, are "responsible employees." Responsible employees are required to share any information they have regarding incidents of sexual misconduct with the Title IX Coordinator. Carleton's goal is to ensure community members are aware of all the options available and have access to the resources they need. If you have questions, please contact Carleton's Title IX Coordinator or visit the [Sexual Misconduct Prevention and Response](https://www.carleton.edu/sexual-misconduct/) website.
 
-:::: {.block-announcement}
+:::: {.block-school}
 ::: {.block-header}
 Land Acknowledgement
 :::

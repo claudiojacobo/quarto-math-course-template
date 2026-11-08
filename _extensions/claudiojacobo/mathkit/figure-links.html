@@ -1,0 +1,28 @@
+<script>
+// figure-links: on web pages, a captioned figure's link (put in the caption
+// by figure-links.lua) becomes a corner badge on the image, and the image
+// becomes clickable, matching uncaptioned figures. Without JavaScript the
+// caption link remains and still works; PDFs keep the caption link.
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("figcaption a.figure-link").forEach((captionLink) => {
+    const figure = captionLink.closest("figure");
+    const img = figure && figure.querySelector("img");
+    if (!img || img.closest("a")) return;
+
+    const link = document.createElement("a");
+    for (const attr of captionLink.attributes) link.setAttribute(attr.name, attr.value);
+    const badge = document.createElement("span");
+    badge.className = "figure-link-badge";
+    badge.textContent = captionLink.textContent.replace(/\s+/g, " ").trim();
+    img.replaceWith(link);
+    link.append(img, badge);
+
+    // The caption link is now redundant: remove it and the space before it.
+    const before = captionLink.previousSibling;
+    if (before && before.nodeType === Node.TEXT_NODE) {
+      before.textContent = before.textContent.replace(/\s+$/, "");
+    }
+    captionLink.remove();
+  });
+});
+</script>

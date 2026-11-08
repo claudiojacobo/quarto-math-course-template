@@ -1,0 +1,14 @@
+```{sage}
+#| include: false
+# Hidden setup for pages with 3D plots (mathkit or cjgg extension): loads
+# show3d.py from the extension, which makes show() render 3D graphics as a
+# Tachyon still plus an "Explore in 3D" link. See mathkit's README, "Sage 3D
+# plots"; students never see this cell.
+import pathlib as _pathlib
+_here = _pathlib.Path.cwd()
+_root = next(p for p in [_here, *_here.parents] if (p / "_quarto.yml").exists())
+_found = sorted(_root.glob("_extensions/**/show3d.py"))
+if not _found:
+    raise FileNotFoundError("show3d.py not found under _extensions/: is the mathkit (or cjgg) extension installed?")
+load(str(_found[0]))
+```

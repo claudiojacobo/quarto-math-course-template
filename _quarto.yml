@@ -39,26 +39,21 @@ book:
 bibliography: references.bib
 
 format:
-  html:
+  # The mathkit extension (_extensions/claudiojacobo/mathkit) provides the
+  # theme, the math macros, MathJax settings, and the course filters (blocks,
+  # exams and grade tables, homework numbering, …). Only course settings here.
+  # Update it with: quarto update claudiojacobo/quarto-extensions/mathkit
+  mathkit-html:
     toc: true
     toc-depth: 3
     number-sections: true
     number-depth: 2
-    html-math-method: mathjax
-    include-in-header:
-      - .scripts/mathjax-config.html
-      - .scripts/mathjax-copy.html
-      - .scripts/clean-tab-title.html
-    respect-user-color-scheme: true
-    theme:
-      light: [flatly, custom.scss]
-      dark: [darkly, custom.scss]
-  pdf:
+  mathkit-pdf:
+    # Accessible (tagged) PDF: see _quarto-tagged.yml (./build.sh --tagged).
     toc-depth: 2
     documentclass: report
     include-in-header:
       text: |
-        \usepackage{style}
         \let\oldappendix\appendix
         \renewcommand{\appendix}{
           \oldappendix
@@ -67,13 +62,3 @@ format:
     geometry:
       - margin = 1in
     fontsize: 11pt
-    colorlinks: true
-    linkcolor: RoyalBlue
-    urlcolor: FireBrick
-    citecolor: ForestGreen
-
-filters:
-  - .scripts/blocks.lua
-  - .scripts/auto-numbering.lua
-  - .scripts/centered-title.lua
-  - .scripts/gradetable.lua

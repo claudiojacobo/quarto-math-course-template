@@ -4,6 +4,7 @@
 --   - Inside each exam block, looks for `Div` elements with class `question`.
 --   - Within a `.question` block, children with class `part` are grouped together and converted into a native Pandoc ordered list (lowercase letters, parentheses). Any non‑`.part` content (e.g., text, code blocks) between part groups is preserved.
 --   - Adds point labels to each `.part` and to the main `.question`
+--   - An `total=N` attribute on the `.exam` Div replaces the summed total in the grade table.
 --   - Replaces a paragraph containing exactly `[GRADETABLE]` with a Pandoc table listing problem numbers, points, and a blank "Score" column.
 --   - Stores cross‑reference information for each problem and part in an internal map (using their `identifier` attributes).
 -- 2. Converts `Cite` elements into links that point to the corresponding problem or part, using the map built in pass 1.
@@ -21,6 +22,9 @@ function Pandoc(doc)
 
       local q_num = 0
       local total_points = 0
+      -- `::::: {.exam total=28}` overrides the summed total in the grade table
+      -- (e.g. when students skip one question).
+      local total_override = tonumber(exam_el.attributes['total'])
       local questions = {}
 
       -- Walk the contents of this block
@@ -148,7 +152,7 @@ function Pandoc(doc)
             -- Add the total row
             table.insert(rows, {
               {pandoc.Plain({pandoc.Strong({pandoc.Str("Total")})})},
-              {pandoc.Plain({pandoc.Strong({pandoc.Str(tostring(total_points))})})},
+              {pandoc.Plain({pandoc.Strong({pandoc.Str(tostring(total_override or total_points))})})},
               {}
             })
 

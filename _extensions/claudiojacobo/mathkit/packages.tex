@@ -1,0 +1,9 @@
+% packages.tex — LaTeX packages the PDF format always loads.
+% Loaded BEFORE macros.tex so that \providecommand in macros.tex defers to any package definition (diffcoeff's \diff, \diffp, \dl, \difc, \difcp).
+%   + amsmath, unicode-math, hyperref and graphicx are loaded by Quarto itself.
+%   + No cleveref: Quarto resolves @thm-… cross-references itself, and cleveref must load after hyperref, which Quarto loads after these header includes.
+\usepackage{amsthm, mathtools, mathrsfs}
+\usepackage{diffcoeff}
+\usepackage{booktabs, multicol}
+\usepackage{tikz-cd}
+\usepackage{emoji}

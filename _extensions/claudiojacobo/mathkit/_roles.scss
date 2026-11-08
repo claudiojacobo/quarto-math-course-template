@@ -1,0 +1,26 @@
+/* _roles.scss — publish the roles as --mk-* custom properties
+   ----------------------------------------------------------------------
+   $roles (in the theme's _palette.scss) names a palette key for every
+   color the shared stylesheets use; $role-maps-light / $role-maps-dark
+   list the Sass maps those keys are looked up in. The values are written
+   out rather than pointing at the theme's own custom properties: a custom
+   property is resolved where it is declared, so a var() on :root would
+   keep its light value in dark mode. The html.quarto-dark selector is for
+   applets that toggle the class on <html>.
+   ---------------------------------------------------------------------- */
+/*-- scss:rules --*/
+
+@mixin publish-roles($maps) {
+  @if type-of($maps) == "map" { $maps: ($maps,); }   // one map, not a list of them
+  $all: ();
+  @each $map in $maps { $all: map-merge($all, $map); }
+  @each $role, $key in $roles {
+    @if not map-has-key($all, $key) {
+      @error "role \"#{$role}\": \"#{$key}\" is not in the role maps";
+    }
+    --mk-#{$role}: #{map-get($all, $key)};
+  }
+}
+
+:root { @include publish-roles($role-maps-light); }
+body.quarto-dark, html.quarto-dark { @include publish-roles($role-maps-dark); }

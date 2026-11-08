@@ -1,10 +1,6 @@
 # Homework 1 {.centered-title}
 <!-- We expect Homework to be placed in the Appendix. To parse properly via auto-numbering.lua, assignments MUST be at heading level 1 (#), use the .centered-title class, and have a title of the form "Homework n" -->
 
-::: {.content-hidden}
-{{< include ../_macros.qmd >}}
-:::
-
 {{< include _homework-header.qmd >}}
 
 ::: {#exr-rational-point-on-sphere} 
@@ -13,5 +9,20 @@ $$
     \Tb \coloneqq \{ (x,y) \in \Ab^2 \mid x^2 + y^2 = 1 \}.
 $$
 :::
+
+::: {#exr-counting-faces}
+Use @prp-cube-faces to answer the following.
+
+(a) How many 3-dimensional faces does the unit 5-cube have?
+(b) Show that a hypersquare $\Hsq{4}$ satisfies more coherence conditions than it has vertices (see @cor-coherence-count).
+:::
+
+:::: {.content-visible when-profile="instructor"}
+::: {.solution}
+(a) $\binom{5}{3} 2^{2} = 40$.
+
+(b) By @cor-coherence-count, $\Hsq{4}$ satisfies $\binom{4}{2} 2^{2} = 24$ coherence conditions, while it has only $\binom{4}{0} 2^{4} = 16$ vertices.
+:::
+::::
 
 > *Note*: Next week, we will see why this parameterization fails when $\Tb$ is replaced by the boundary of a 2-dimensional hypersquare!

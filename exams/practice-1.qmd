@@ -1,9 +1,5 @@
 # Midterm 1 (Practice) {.unnumbered .centered-title}
 
-::: {.content-hidden}
-{{< include ../_macros.qmd >}}
-:::
-
 ::::: {.exam}
 
 {{< include _exam-header.qmd >}}

@@ -1,7 +1,8 @@
+# ./build.sh --accessible: check the web pages against WCAG with axe-core
 project:
   output-dir: _accessible
 
 format:
-  html:
+  mathkit-html:
     axe:
       output: document

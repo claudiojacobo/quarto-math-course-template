@@ -1,0 +1,154 @@
+/* _blocks.scss */
+/*-- scss:rules --*/
+
+/* --- Base Block Blueprint --- */
+.custom-block-base {
+  /* The accent, darkened for use as text/button color (see "ink-mix" in
+     _palette.scss). Declared here, on the same element as --theme-color, on
+     purpose: a custom property is resolved where it is declared. */
+  --theme-ink: color-mix(in oklab, var(--theme-color) var(--mk-ink-mix), black);
+
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  border: 2px dashed var(--theme-color);
+  background-color: color-mix(in srgb, var(--theme-color) var(--mk-block-alpha), transparent);
+  transition: background-color 0.3s ease, border-style 0.2s ease, border-color 0.3s ease;
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--theme-color) calc(var(--mk-block-alpha) + 4%), transparent);
+    border-style: solid; 
+  }
+
+  /* Safely removes the bottom margin ONLY for the very last element in the block */
+  & > *:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /* Relaxed spacing: connects the intro paragraph to the list without squishing it */
+  p:has(+ ul), p:has(+ ol) {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Standardized spacing after the list so the next paragraph can breathe */
+  ul, ol {
+    margin-bottom: 1rem;
+  }
+
+  /* Fixed Flexbox Header Alignment */
+  .block-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+
+    color: var(--header-color, var(--theme-ink));
+    font-weight: 700;
+    font-size: 1.05em;
+    margin-bottom: 0.65rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--theme-color) 25%, transparent);
+    
+    /* Prevents Quarto's injected <p> tags from breaking icon flex alignment */
+    p {
+      margin-bottom: 0;
+    }
+
+    &::before {
+      content: var(--block-icon, "\F431");
+      font-family: "bootstrap-icons";
+      font-size: 1.1em;
+      line-height: 1;
+    }
+  }
+
+  /* --- Standard Text Links --- */
+  a:not(.nav-link):not(.btn):not(.figure-link) {
+    color: var(--theme-ink);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: var(--theme-ink);
+      color: var(--mk-on-accent);
+      text-decoration-color: transparent;
+      border-radius: 4px;
+      padding: 0 3px;
+      margin: 0 -3px;
+    }
+  }
+
+  /* --- Button Links Inside Blocks --- */
+  .btn {
+    background-color: var(--theme-ink);
+    color: var(--mk-on-accent);
+    border: 2px dashed var(--mk-text);
+    font-weight: 600;
+    
+    display: inline-block;
+    margin: 0.35rem 0.25rem;
+    border-radius: 8px;
+    
+    transition: all 0.2s ease, transform 0.1s ease;
+    
+    /* On hover the button turns black (light mode) or white (dark mode);
+       its text keeps the on-accent color, which reads on both. */
+    &:hover {
+      background-color: var(--mk-inverse);
+      color: var(--mk-on-accent);
+      border-style: solid;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+/* --- Callout Loop --- */
+/* Each block gets its color from the role block-<name> (see $roles in
+   _palette.scss) as --theme-color (the accent) and, via .custom-block-base,
+   --theme-ink (the accent darkened for text); and a Bootstrap icon. */
+$block-icons: (
+  "info":      "\F431",
+  "code":      "\F5C3",
+  "success":   "\F26B",
+  "attention": "\F5A2",
+  "warning":   "\F33B",
+  "danger":    "\F623",
+  "note":      "\F444",
+  "tip":       "\F46B",
+  "current":   "\F293",
+  "scholar":   "\F194",
+  "personal":  "\F8F6",
+);
+
+@each $name, $icon in $block-icons {
+  .block-#{$name} {
+    @extend .custom-block-base;
+    --theme-color: var(--mk-block-#{$name});
+    --block-icon: "#{$icon}";
+  }
+}
+
+/* --- Dedicated School Block --- */
+.block-school {
+  @extend .custom-block-base;
+  --theme-color: var(--mk-block-school);
+  border-color: var(--mk-block-school-border);
+  --header-color: var(--mk-text);
+  --block-icon: "\F8E0";
+}
+
+/* --- Button Gallery Helper --- */
+.btn-gallery {
+  margin-top: 1.5rem;
+  
+  p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0;
+  }
+}

@@ -1,9 +1,5 @@
 # Midterm 1 {.unnumbered .centered-title}
 
-::: {.content-hidden}
-{{< include ../_macros.qmd >}}
-:::
-
 ::::: {.exam}
 
 {{< include _exam-header.qmd >}}
@@ -43,9 +39,9 @@ Sketch the action curve on the provided 2-face grid, clearly labeling the anomal
 ::: {#prb-maximum-discrete-action .question points=10}
 As you proved in @prb-coherence-identity, sequential reflections on a 2-face yield the identity automorphism, effectively trapping the particle. Suppose the accumulated discrete action $\mathcal{S}(t)$ under the transport holonomy $\mathcal{H}_\gamma(t)$ is governed by the trace of the hypersquare connection form:
 $$
-\mathcal{S}(t) = \frac{1}{2\pi i} \oint_{\dlp{Q}} \Trace \left( \mathcal{H}_\gamma(t)^{-1} \nabla_{\!t} \mathcal{H}_\gamma(t) \right) \dl{\tau}
+\mathcal{S}(t) = \frac{1}{2\pi i} \oint_{\partial Q} \Trace \left( \mathcal{H}_\gamma(t)^{-1} \nabla_{\!t} \mathcal{H}_\gamma(t) \right) \dl{\tau}
 $$
-Assuming that for our specific hypersquare, this contour integral over the boundary $\dlp{Q}$ simplifies exactly to the polynomial action $A(t)$ evaluated at phase $t$, use the critical phases of @prb-action-deriv to find the maximum discrete action the particle can accumulate before the holonomy forces a periodic phase shift.
+Assuming that for our specific hypersquare, this contour integral over the boundary $\partial Q$ simplifies exactly to the polynomial action $A(t)$ evaluated at phase $t$, use the critical phases of @prb-action-deriv to find the maximum discrete action the particle can accumulate before the holonomy forces a periodic phase shift.
 :::
 
 {{< include _blank-page.qmd >}}
