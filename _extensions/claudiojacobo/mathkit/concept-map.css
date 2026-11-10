@@ -1,0 +1,59 @@
+/* concept-map.css: the concept map's own look (concept-map.js), on top of
+   graph-view.css. Colors are the theme's roles (--mk-*), so a definition
+   here is the color of a definition's box in the notes, in light and dark
+   mode; the fallbacks are for other themes. */
+.concept-map {
+  --cm-def: var(--mk-env-definition, #0d6efd);
+  --cm-thm: var(--mk-env-theorem, #13795b);
+  --cm-prp: var(--mk-env-proposition, #6610f2);
+  --cm-lem: var(--mk-env-lemma, #087990);
+  --cm-cor: var(--mk-env-corollary, #198754);
+  --cm-cnj: var(--mk-env-question, #ca6510);
+  --cm-exm: var(--mk-text-subtle, #595c5f);
+}
+
+/* shapes: fill and outline by kind; examples are hollow */
+.cm-shape.cm-def { fill: var(--cm-def); }
+.cm-shape.cm-thm { fill: var(--cm-thm); }
+.cm-shape.cm-prp { fill: var(--cm-prp); }
+.cm-shape.cm-lem { fill: var(--cm-lem); }
+.cm-shape.cm-cor { fill: var(--cm-cor); }
+.cm-shape.cm-cnj { fill: var(--cm-cnj); }
+.cm-shape.cm-exm { fill: var(--cm-bg); stroke: var(--cm-exm); stroke-width: 2; }
+
+/* chapter outlines: the outline of each chapter's items, drawn with a thick
+   rounded stroke so it becomes a blob; colored by part (--cm-hull is set to
+   one of these by the script) */
+.concept-map {
+  --cm-part-0: var(--cm-exm); --cm-part-1: var(--cm-def);
+  --cm-part-2: var(--cm-cor); --cm-part-3: var(--cm-prp);
+}
+.cm-hull {
+  fill: var(--cm-hull); stroke: var(--cm-hull); opacity: 0.1;
+  stroke-width: 56px; stroke-linejoin: round; stroke-linecap: round;
+}
+
+/* chapter titles: HTML over the drawing, placed by the script (hidden in Free) */
+.cm-chapter { position: absolute; left: 0; top: 0; white-space: nowrap; }
+.cm-chapter[hidden] { display: none; }
+.cm-chapter {
+  transform-origin: 50% 100%;
+  font-size: 15px; font-weight: 700; color: var(--cm-text); opacity: 0.55;
+}
+
+/* the card and the list: the kind's color */
+.cm-chip-def { border-left: 4px solid var(--cm-def); }
+.cm-chip-thm { border-left: 4px solid var(--cm-thm); }
+.cm-chip-prp { border-left: 4px solid var(--cm-prp); }
+.cm-chip-lem { border-left: 4px solid var(--cm-lem); }
+.cm-chip-cor { border-left: 4px solid var(--cm-cor); }
+.cm-chip-cnj { border-left: 4px solid var(--cm-cnj); }
+.cm-chip-exm { border-left: 4px solid var(--cm-exm); }
+.cm-text-def { border-left-color: var(--cm-def); } .cm-text-thm { border-left-color: var(--cm-thm); }
+.cm-text-prp { border-left-color: var(--cm-prp); } .cm-text-lem { border-left-color: var(--cm-lem); }
+.cm-text-cor { border-left-color: var(--cm-cor); } .cm-text-cnj { border-left-color: var(--cm-cnj); }
+.cm-text-exm { border-left-color: var(--cm-exm); }
+.cm-list-def { border-left-color: var(--cm-def); } .cm-list-thm { border-left-color: var(--cm-thm); }
+.cm-list-prp { border-left-color: var(--cm-prp); } .cm-list-lem { border-left-color: var(--cm-lem); }
+.cm-list-cor { border-left-color: var(--cm-cor); } .cm-list-cnj { border-left-color: var(--cm-cnj); }
+.cm-list-exm { border-left-color: var(--cm-exm); }

@@ -257,11 +257,14 @@
 }, window.mkProjectMacros || {})
     },
     output: {
-      // Let long display equations wrap on narrow screens (MathJax 4).
-      // Readers can override per page: right-click an equation →
-      // Math Settings → Wide Expressions.
+      // Long display equations wrap on narrow screens (MathJax 4). Readers
+      // can override per page: right-click an equation → Math Settings →
+      // Wide Expressions.
       displayOverflow: 'linebreak',
-      linebreaks: { inline: true, width: '100%', lineleading: 0.2 }
+      // Inline math is never split across lines (MathJax 4 would otherwise
+      // break $x, y \in X$ after the comma, like TeX): the browser wraps
+      // the text around each formula as a whole.
+      linebreaks: { inline: false, width: '100%', lineleading: 0.2 }
     }
   };
 </script>

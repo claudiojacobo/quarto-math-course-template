@@ -2,7 +2,18 @@
 
 We briefly recall some standard definitions and results concerning polytopes in Euclidean space. For additional context, see @DH1998.
 
-An $n$-dimensional polytope may be defined either as the convex hull of a finite set of points in $\Rb^n$ or, equivalently, as a bounded intersection of finitely many half-spaces. The $k$-dimensional faces of a polytope (for all $0 \leq k \leq n$) form a graded structure that will be useful when passing to more combinatorial descriptions.
+::: {#def-polytope}
+#### Polytope
+An $n$-dimensional *polytope* is the convex hull of a finite set of points in $\Rb^n$ that is not contained in any hyperplane; equivalently, a bounded intersection of finitely many half-spaces with nonempty interior.
+:::
+
+::: {#def-face}
+#### Faces
+[@def-polytope]{.uses}
+A *face* of a polytope $P$ is either $P$ itself or the intersection of $P$ with a hyperplane $H$ such that $P$ lies in one of the two closed half-spaces bounded by $H$. A face of dimension $k$ is a *$k$-face*.
+:::
+
+The faces of a polytope (for all $0 \leq k \leq n$) form a graded structure that will be useful when passing to more combinatorial descriptions.
 
 Of particular importance are cubes and their higher-dimensional analogues. The $n$-cube, or *hypercube*, can be described as the Cartesian product of $n$ intervals, and its face lattice admits a simple description in terms of binary strings. This combinatorial regularity makes hypercubes a convenient testing ground for general constructions, even in settings where the underlying metric structure is modified or only partially specified.
 
@@ -23,6 +34,7 @@ Cubes will be our main source of examples.
 
 ::: {#exm-unit-cube}
 #### The unit $n$-cube
+[@def-polytope @def-face]{.uses}
 The unit $n$-cube is $[0,1]^n \subseteq \Rb^n$. Its vertices are the $2^n$ points with coordinates in $\{0,1\}$, and two vertices span an edge exactly when they differ in one coordinate. @tbl-cube-faces counts its faces in small dimensions.
 :::
 
@@ -38,6 +50,7 @@ The unit $n$-cube is $[0,1]^n \subseteq \Rb^n$. Its vertices are the $2^n$ point
 The pattern in @tbl-cube-faces is no accident.
 
 ::: {#prp-cube-faces}
+[@exm-unit-cube @def-face]{.uses}
 The unit $n$-cube has exactly $\binom{n}{k} 2^{n-k}$ faces of dimension $k$.
 :::
 

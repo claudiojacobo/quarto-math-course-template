@@ -1,0 +1,10 @@
+---
+page-layout: full
+toc: false
+---
+
+# Concept Map {.unnumbered .web-only}
+
+Every definition, theorem and example in the notes, and how they depend on each other: an arrow from $A$ to $B$ means that $B$ uses $A$. Hover over an item to see it; click it to light up everything it rests on, all the way down to the definitions, and what uses it next. Drag to rearrange, scroll to zoom, and press <kbd>Esc</kbd> to start over.
+
+{{< concept-map >}}

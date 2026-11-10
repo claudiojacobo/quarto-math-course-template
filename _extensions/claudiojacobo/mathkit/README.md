@@ -63,10 +63,99 @@ tombstone can be swapped for an icon: `::: {.proof .smile}` (see `_theorems.scss
 
 Project-level tooling (`build.sh`, profiles, splitting the PDF) stays in the course template, since it depends on the course's folder layout.
 
+## Book numbering: chapter 0, parts without numbers
+
+Quarto numbers a book's chapters from 1. For a chapter 0 before chapter 1, leave it unnumbered and mark it as the zeroth:
+
+```markdown
+# Binary Operations {#sec-binary-operations .unnumbered .chapter-zero}
+```
+
+The chapters after it are numbered 1, 2, … as usual, and the 0 goes back in: the PDF has a real Chapter 0 (in the table of contents too), and on the web its page title reads "0 Binary Operations" and its items "Definition 0.1", "Proposition 0.2". References to them anywhere in the book read the same (`@prp-…` → "Proposition 0.2", `@sec-binary-operations` → "Chapter 0", `-@sec-…` → "0"), and so does the concept map. Not covered: the sidebar and the previous/next links show the title without the 0, sections within the chapter aren't numbered on the web, and its figures, tables and equations keep Quarto's numbers on the web ("Figure 1"). `chapter-zero.lua` numbers the chapter; `chapter-zero-refs.lua` writes the references to it, before Quarto resolves them.
+
+Web pages don't number a book's parts; the PDF does ("Part I"). To leave a part's number out, list it in `_quarto.yml`:
+
+```yaml
+unnumbered-parts: [Preliminaries]
+```
+
+Its part page then has just the title, and the parts after it are I, II, … (`unnumbered-parts.lua`).
+
+## Concept map
+
+For a book of notes: a map of every definition, theorem, proposition, lemma, corollary, conjecture and example (divs labelled `#def-…`, `#thm-…`, `#prp-…`, `#lem-…`, `#cor-…`, `#cnj-…`, `#exm-…`), with an arrow from A to B when B uses A. Readers hover an item to read it, click it to light up everything it rests on (and what uses it next), open it in the notes, drag, zoom, and switch layouts.
+
+An item's dependencies are what you declare, on a line of its own, as cross-references:
+
+```markdown
+::: {#prp-inverse-unique}
+#### Inverses are unique
+[@def-associative @def-inverse]{.uses}
+Let $\star$ be an associative binary operation …
+:::
+```
+
+As @-references they autocomplete in VS Code and Quarto warns about typos; `uses.lua` removes the line from the page and the PDF. Nothing is inferred from proofs, so a forward reference in a proof makes no arrow. The map assumes there are no circular dependencies, and warns if it finds one. Arrows implied by others aren't drawn (if C uses A and B, and B uses A, then A → C is left out), but an item's card lists everything it uses.
+
+The map reads the chapter files themselves (`{{< include >}}` lines expanded), not Quarto's output, so it resolves the references in statements on its own: another item becomes a chip (a link, in the List view); a chapter or section becomes a link with its title; a citation such as `[@DF2004, Prop. 1.1]` becomes "Dummit & Foote, Prop. 1.1", linked to the references page, using the project's `bibliography`. Numbers follow Quarto's (per kind, within the chapter; a chapter titled in YAML counts too).
+
+An item's label on the map is its title, or its number if it has none. `label="…"` gives a shorter one, and may contain math:
+
+```markdown
+::: {#prp-ring-basics label="Arithmetic in a ring"}
+```
+
+The map goes on a page of its own, which has to be one of the book's chapters (a book renders only its chapters). `.web-only` (`web-only.lua`) leaves it out of the PDF:
+
+```markdown
+---
+page-layout: full
+toc: false
+---
+
+# Concept Map {.unnumbered .web-only}
+
+An arrow from $A$ to $B$ means that $B$ uses $A$. …
+
+{{< concept-map >}}
+```
+
+Keep some math on the page: Quarto loads MathJax only on pages with math, and the map typesets its labels and cards with it. Then, in `_quarto.yml`:
+
+```yaml
+book:
+  chapters:
+    - index.qmd
+    - concepts.qmd
+    # …
+  sidebar:
+    tools:
+      - icon: diagram-3
+        href: concepts.html
+        aria-label: "Concept map"
+        text: "Concept map"
+```
+
+Layouts: **Clusters** (the default: chapters attract each other in proportion to the arrows between them), **Dependencies** (a chapter sits one column right of the deepest chapter it uses), **Book order** (rows in reading order, a row per part) and **Free** (no chapters; the items find their own places, and chapter titles are hidden). **Show chapters** outlines each chapter, colored by part. `{{< concept-map layout="book" outline="false" >}}` sets what a reader sees first (`clusters`, `depth`, `book`, `free`); each reader's own choices are remembered in their browser. `concepts.html#thm-lagrange` opens the map focused on that item. The layouts' tuning (spacing, how hard items are pulled to their chapter) is at the top of `concept-map.js`; the simulation's (forces, zoom limits) at the top of `graph-view.js`, the viewer underneath, which knows nothing about theorems (see *The map viewer* below).
+
+- **Search.** As you type, the items whose name, title, label or statement contain every word stay lit and the rest dim; Enter (Shift+Enter) steps through them in book order, showing each one's card.
+- **List view.** The same information as text: a heading per chapter, and for each item a link into the notes, its title, what it uses and what uses it (as links within the list), and its statement. It is plain HTML in the page (`concept-map.lua` writes it), so it is what a screen reader reads, it works from the keyboard and without JavaScript, and search filters it too. The Map/List switch is the first control on the toolbar; "Show on the map" goes back to the map, focused on that item.
+- **Full screen.** The toolbar's last button. Esc leaves; where a browser can't do full screen (an iPhone), the map fills the window instead.
+- **Keyboard.** The map is one Tab stop; the arrow keys move through the items in book order (Home/End: first and last), the card following, and Enter or Space focuses one. `concepts.html#cm-item-thm-lagrange` opens the List view at an item.
+- **Esc** clears, in turn, the focused item, the search, and full screen. Each reader's view, layout and chapter outlines are remembered in their browser. Printing the page prints the list, statements open.
+
+The map is built when its page renders, from the chapter files listed in `_quarto.yml`. `quarto preview` re-renders only the page you edit, so render the whole book to update it.
+
+### The map viewer
+
+`graph-view.js` (with `graph-view.css`) is the concept map's viewer, and knows nothing about theorems: given nodes and arrows, it runs the force simulation and does the panning and zooming, dragging, highlighting, card, search, List view, full screen, keyboard and links. `concept-map.js` is what makes it a concept map: chapters and the four layouts, shapes by kind, the legend, chapter outlines, what lights up, what the card says, the Examples toggle. Another kind of map is another such script calling `GraphView.create(root, spec)`; the comment at the top of `graph-view.js` lists what `spec` can say. Its classes all start with `cm-`.
+
+`tools/check-concept-map.mjs`, in the repository, checks that a change to either leaves the concept map exactly as it was (see its comment).
+
 ## Code cells (both formats)
 
 - `hide-lines.lua`: a line of an executed cell ending in `#hide` runs but is removed from the displayed code (and from what the copy button copies). Hide only presentation (camera, size, seed), never math.
-- `figure-links.lua`: code that displays an image and then a link marked `.figure-link` (a 3D plot's still and its interactive viewer, say) gets one output, not two, which keeps `layout-ncol` grids intact. On web pages the image becomes the link, with the link text as a badge in its corner. In PDF, a captioned image gets the link in its caption; an uncaptioned one keeps the image as it is, with the link in a paragraph after the cell.
+- `figure-links.lua`: code that displays an image and then a link marked `.figure-link` (a 3D plot's still and its interactive viewer, say), displayed as Markdown or printed on a line of its own, gets one output, not two, which keeps `layout-ncol` grids intact. Print it: Quarto hands a cell's `fig-cap` and `fig-alt` lists to displayed outputs one each, in order, so a displayed link would take the next image's caption. On web pages the image becomes the link, with the link text as a badge in its corner. In PDF, a captioned image gets the link in its caption; an uncaptioned one keeps the image as it is, with the link in a paragraph after the cell.
 - `site-links.lua`: `[text](3d/a.html){.site-link site-path="hw/3d/a.html"}` stays relative on web pages and becomes `<site-url>/hw/3d/a.html` in PDF, where a relative link to a web file would lead nowhere. Needs `site-url` in the project (top level, `book:` or `website:`).
 
 ## Sage 3D plots
@@ -76,7 +165,7 @@ becomes a ray-traced still (in the page and the PDF) that links to Sage's
 interactive viewer. The project needs:
 
 - Sage's Jupyter kernel, for `{sage}` cells.
-- The Tachyon ray tracer on `PATH`: `brew install dimpase/tap/tachyon` on macOS (Sage's macOS app doesn't include it); check with `which tachyon`.
+- The Tachyon ray tracer, on `PATH` or in Sage's own program folder (`show3d.py` adds that folder to `PATH` when the setup cell runs, which also lets the page's 3D animations, `animate(...)` of 3D frames, find it). If neither has it, `brew install dimpase/tap/tachyon` on macOS; check with `which tachyon`.
 - In `_quarto.yml`, the viewers published with the site, and the site's address (the PDF links to the published viewers):
   ```yaml
   project:
@@ -104,7 +193,9 @@ view3d(camera_position=(4.6, -4.8, 4.0), point_scale=2)   #hide
 show(surface + pts)
 ```
 
-`view3d(...)` sets options for **the next 3D plot only**; plots without one use the defaults.
+Side by side works as for any figures: `#| layout-ncol: 2` with a list under `fig-cap` (and `fig-alt`), one entry per plot, in the order the plots are shown.
+
+`view3d(...)` sets options for **the next 3D plot only**, so put it just before that plot's `show()`; plots without one use the defaults.
 
 **Choosing a view.** Each still is taken from the camera the interactive viewer opens with, so the two match. For a different view, open the plot's *Explore in 3D* page (or run the cell in your own Sage), turn and zoom the plot, and click ⓘ in the bottom-right corner → **Get camera**. Paste what it copies into a `view3d` line, deleting the comma at its start (Sage adds it so the text can be pasted into a `show(...)` call):
 
@@ -210,6 +301,11 @@ blocks.lua            .block-* divs → LaTeX environments (PDF only)
 auto-numbering.lua centered-title.lua gradetable.lua   course filters (above)
 hide-lines.lua figure-links.lua site-links.lua         code-cell filters (above)
 project-macros.lua    the project's own macros.tex, in PDF and on web pages
+graph-view.js .css    the map viewer: simulation, pan and zoom, card, search, List view (below)
+concept-map.lua .js .css   the {{< concept-map >}} shortcode, on the map viewer (above)
+uses.lua web-only.lua      drop {.uses} lines; keep {.web-only} chapters out of the PDF
+chapter-zero.lua chapter-zero-refs.lua   a {.chapter-zero} chapter numbered 0, and references to it (above)
+unnumbered-parts.lua  unnumbered-parts: [...] → those parts without a number in the PDF (above)
 packages.tex          LaTeX packages for PDF, loaded before macros.tex
 images.tex            PDF images fit a 4:3 box as wide as their column
 blocks.tex            the .block-* tcolorbox environments

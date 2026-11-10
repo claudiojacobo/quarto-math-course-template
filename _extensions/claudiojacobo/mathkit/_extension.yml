@@ -1,8 +1,10 @@
 title: mathkit
 author: Claudio Gómez-Gonzáles
-version: 0.7.0
+version: 0.12.0
 quarto-required: ">=1.6.0"
 contributes:
+  shortcodes:
+    - concept-map.lua         # {{< concept-map >}}: a map of a book's definitions, theorems, examples
   formats:
     common:
       # Filters run in this order for every format.
@@ -18,6 +20,18 @@ contributes:
         - figure-links.lua        # a {.figure-link} output after an image becomes a link on that image
         - site-links.lua          # {.site-link site-path=…} links become absolute URLs in PDF (after figure-links)
         - project-macros.lua      # the project's own macros.tex, in PDF and on web pages
+        # The concept map's helpers, after Quarto has numbered chapters and checked references:
+        - path: uses.lua          # [@def-a @thm-b]{.uses} dependency lines are removed
+          at: post-render
+        - path: web-only.lua      # {.web-only} chapters (the concept map) are left out of the PDF
+          at: post-render
+        # Book numbering (see "Book numbering" in the mathkit README):
+        - path: chapter-zero-refs.lua   # references to a {.chapter-zero} chapter, before Quarto resolves them
+          at: pre-quarto
+        - path: chapter-zero.lua        # a {.chapter-zero} chapter is numbered 0
+          at: post-render
+        - path: unnumbered-parts.lua    # unnumbered-parts: [...] → those parts without a number in the PDF
+          at: post-render
     html:
       theme:
         light: [default, custom.scss]

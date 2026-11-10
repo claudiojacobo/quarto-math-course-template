@@ -15,11 +15,15 @@ For each 3D plot passed to show():
      library per plot; the mesh itself is still in the file);
   2. a still image is ray-traced with Tachyon and shown as a JPEG, picking up
      the cell's fig-alt and fig-cap;
-  3. an "Explore in 3D ↗" link opens the viewer in a new tab. The extension
-     merges it into the image (figure-links.lua: the image becomes the link,
-     with a corner badge, so side-by-side layouts stay intact) and points it
-     at the published site in PDF (site-links.lua). The project must publish
-     the viewers (resources: "**/3d/*.html") and set site-url.
+  3. an "Explore in 3D ↗" link opens the viewer in a new tab. It is printed
+     as a line of text, not displayed: Quarto hands a cell's fig-cap and
+     fig-alt lists out to its displayed outputs one each, in order, so a
+     displayed link would take the next plot's caption. The extension turns
+     the line back into a link and merges it into the image (figure-links.lua:
+     the image becomes the link, with a corner badge, so side-by-side layouts
+     stay intact), and points it at the published site in PDF
+     (site-links.lua). The project must publish the viewers
+     (resources: "**/3d/*.html") and set site-url.
 <id> is computed from the plot itself, so unchanged plots keep their files.
 
 The still is taken from the same camera the viewer opens with. To choose
@@ -33,8 +37,10 @@ Other options: zoom (1 = the viewer's framing), light_position, point_scale,
 aspect_ratio, shade, figsize, antialiasing; rarely, viewdir and updir.
 See mathkit's README for the table, and CAMERA below for the details.
 
-Needs the Tachyon program on PATH (brew install dimpase/tap/tachyon on macOS;
-Sage's macOS app doesn't include it).
+Needs the Tachyon program, on PATH or in Sage's own program folder: loading
+this file puts that folder on PATH, which also lets Sage's 3D animations
+(animate(...) of 3D frames) find Tachyon. Otherwise install it (brew install
+dimpase/tap/tachyon on macOS).
 
 Covers show(g) and g.show(). Not covered: a 3D plot left as the last
 expression of a cell, which falls back to Sage's normal interactive viewer;
@@ -48,7 +54,9 @@ import pathlib
 import shutil
 import tempfile
 
-from IPython.display import Image, Markdown, display
+import sys
+
+from IPython.display import Image, display
 from PIL import Image as PILImage
 from sage.plot.plot3d.base import Graphics3d
 try:  # where Sage defines its global show()
@@ -122,12 +130,12 @@ _TACHYON_MISSING = (
     "see mathkit's README.)")
 
 
-def _ensure_tachyon():
+def _find_tachyon():
     """Sage runs Tachyon as a separate program named `tachyon`. Kernels started
     by Quarto may not have Sage's own program folders on PATH, so look there
-    before giving up."""
+    too, and add the one that has it. True if Tachyon can now be run."""
     if shutil.which("tachyon"):
-        return
+        return True
     try:
         from sage import env
         roots = [getattr(env, name, None) for name in ("SAGE_LOCAL", "SAGE_VENV")]
@@ -137,8 +145,17 @@ def _ensure_tachyon():
         folder = os.path.join(root, "bin")
         if os.path.exists(os.path.join(folder, "tachyon")):
             os.environ["PATH"] = folder + os.pathsep + os.environ.get("PATH", "")
-            return
-    raise RuntimeError(_TACHYON_MISSING)
+            return True
+    return False
+
+
+def _ensure_tachyon():
+    if not _find_tachyon():
+        raise RuntimeError(_TACHYON_MISSING)
+
+
+# Now, so that Sage's own uses of Tachyon on the page (3D animations) find it.
+_find_tachyon()
 
 
 # --- small vector helpers (plain tuples, so this file needs no numpy) -------
@@ -366,12 +383,13 @@ def _show3d(graphic, **kwds):
         dpi = max(img.size) / PDF_INCHES
         img.save(buf, "JPEG", quality=JPEG_QUALITY, optimize=True, dpi=(dpi, dpi))
 
-    # 3. Image (Quarto applies the cell's fig-alt / fig-cap), then the link.
+    # 3. Image (Quarto gives it the cell's next fig-alt / fig-cap), then the
+    #    link, printed (see the top of this file; figure-links.lua picks it up).
     display(Image(data=buf.getvalue(), format="jpeg"))
     site_path = target.relative_to(_project_root()).as_posix()
-    display(Markdown(
-        f'[Explore in 3D ↗](3d/{name}.html)'
-        f'{{.site-link .figure-link .explore-3d site-path="{site_path}" target="_blank"}}'))
+    print(f'[Explore in 3D ↗](3d/{name}.html)'
+          f'{{.site-link .figure-link .explore-3d site-path="{site_path}" target="_blank"}}')
+    sys.stdout.flush()
 
 
 def show(obj, *args, **kwds):

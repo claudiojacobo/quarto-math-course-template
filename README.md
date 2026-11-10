@@ -40,7 +40,7 @@ brew install python
 
 ### 3. Build it
 
-From the repository folder:
+Then, from the repository folder:
 
 ```bash
 ./build.sh --preview     # the website, live: edits show up as you save
@@ -56,15 +56,15 @@ Change these, in roughly this order:
 | File | What to change |
 | --- | --- |
 | `_variables.yml` | Course name and number, term, instructor, office hours, links, textbook. The syllabus and exam headers read these. Also `exports-directory`, where split PDFs go. |
-| `_quarto.yml` | `book:` title, subtitle, author, page footer, and the list of chapters (notes) and appendices (homework, practice exams, syllabus) that **students** see. |
+| `_quarto.yml` | `book:` title, subtitle, course url, author, page footer, and the list of chapters (notes) and appendices (homework, practice exams, syllabus) that **students** see. |
 | `_quarto-instructor.yml` | Documents only the **instructor** build includes (exams, handouts). |
 | `index.qmd` | The website's front page. |
 | `syllabus/` | Your policies (`main.qmd`), schedule (`_course-schedule.qmd`) and grading (`_grades-table.qmd`). |
-| `macros.tex` | Your own math macros; delete the sample `\Hsq`. |
+| `macros.tex` | Your own math macros (delete the sample `\Hsq`). |
 | `references.bib` | Your references (cite with `@key`). |
-| `favicon.ico`, `robots.txt` | Your icon; which crawlers may read the site (by default it turns away AI crawlers). |
+| `favicon.ico`, `robots.txt` | Your icon; instructions for which crawlers may read the site (by default, it turns away AI crawlers). |
 
-When you are ready, replace the sample course (the fictional *Math 401: Non-Riemannian Hypersquares*) in `notes/`, `homework/`, `exams/` and `handouts/`. Keep the files whose names start with `_` (`_homework-header.qmd`, `_exam-header.qmd`, …): they are shared headers that other pages include.
+When you are ready, replace the sample content in `notes/`, `homework/`, `exams/` and `handouts/` with your own material. Keep the files whose names start with `_` (`_homework-header.qmd`, `_exam-header.qmd`, …): they are shared headers that other pages include.
 
 ## Writing course materials
 
@@ -76,6 +76,19 @@ When you are ready, replace the sample course (the fictional *Math 401: Non-Riem
 For a right triangle with legs $a, b$ and hypotenuse $c$, we have $a^2 + b^2 = c^2$.
 :::
 ```
+
+**The concept map.** `concepts.qmd` enables an optional feature which draws every definition, theorem, example, and so on, in the notes as a directed graph, with an arrow from A to B when B uses A. An item declares what it uses on a line of its own, as cross-references, which takes advantage of auto-completion in standard editors:
+
+```markdown
+::: {#cor-coherence-count}
+[@def-hypersquare @prp-cube-faces]{.uses}
+A hypersquare $\Hsq{n}$ satisfies exactly …
+:::
+```
+
+The line doesn't appear on the page or in the PDF, and the map page itself is website-only. Render the whole site (`quarto render && quarto preview`) to update the map. Layouts, search, the List view and the rest are described under "Concept map" in mathkit's README.
+
+**The map is optional**, and so are the `.uses` lines: without them the map still shows every item, just with no arrows between them. To leave the map out entirely, delete `concepts.qmd` and its line under `chapters:` in `_quarto.yml`. Any `.uses` lines you've written can stay; they never appear on the page or in the PDF.
 
 **Homework.** Each assignment is a file in `homework/` starting with `# Homework 3 {.centered-title}`, listed under `appendices:`. Its exercises (`::: {#exr-name} … :::`) are numbered 3.1, 3.2, … in the PDF; see [the section on numbering](#why-homework-is-lettered-on-the-web-and-numbered-in-the-pdf) below.
 

@@ -4,10 +4,12 @@ project:
 
 book:
   title: "Math 401"
+  site-url: https://math401.cjgg.me
   subtitle: "Non-Riemannian Hypersquares"
   author: "Claudio Gómez-Gonzáles"
   chapters:
     - index.qmd
+    - concepts.qmd   # the concept map (web only; see README)
     - part: "Preliminaries"
       chapters:
         - notes/polytopes.qmd

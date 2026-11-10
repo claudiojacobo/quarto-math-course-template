@@ -73,7 +73,7 @@ def check_used() -> None:
     known = {r for r, _ in roles()}
     latex = {camel(r) for r in known}
     missing = []
-    for f in sorted(HERE.glob("_*.scss")) + sorted(HERE.glob("*.tex")):
+    for f in sorted(HERE.glob("_*.scss")) + sorted(HERE.glob("*.tex")) + sorted(HERE.glob("*.css")):
         if f.name == "tokens.tex":
             continue
         text = f.read_text()

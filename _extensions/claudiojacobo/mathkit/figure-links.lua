@@ -3,8 +3,12 @@ figure-links.lua — attach a cell's link output to the image before it.
 
 Code can display an image and then a link marked `.figure-link`, e.g.
     [Explore in 3D ↗](3d/abc.html){.figure-link …}
-As two separate outputs, the link takes its own slot in layout-ncol grids and
-wraps onto a new row. This filter merges it into the previous output that
+either displayed as Markdown or printed on a line of its own. (Printing is
+better: Quarto hands a cell's fig-cap and fig-alt lists out to displayed
+outputs one each, in order, so a displayed link takes the next image's
+caption. A printed line arrives as a text output, which this filter turns
+back into a link first.) As two separate outputs, the link takes its own slot
+in layout-ncol grids and wraps onto a new row. This filter merges it into the previous output that
 contains an image, within the same cell:
   • a captioned image (a figure): the link is appended to the caption, in
     every format (Quarto rebuilds figures from the image alone, so a link
@@ -43,6 +47,41 @@ local function lone_figure_link(block)
     end
   end
   return link
+end
+
+-- A printed text output (.cell-output-stdout) in which some lines are
+-- .figure-link links: those lines become link outputs, in order, and any
+-- other lines stay text. Returns nil if there are none.
+local function printed_links(block)
+  if block.t ~= "Div" or not block.classes:includes("cell-output-stdout") then return nil end
+  local code = block.content[1]
+  if #block.content ~= 1 or code.t ~= "CodeBlock" then return nil end
+  local out, text, found = pandoc.List(), pandoc.List(), false
+  local function flush_text()
+    if #text > 0 then
+      out:insert(pandoc.Div({ pandoc.CodeBlock(table.concat(text, "\n"), code.attr) }, block.attr))
+      text = pandoc.List()
+    end
+  end
+  for line in (code.text .. "\n"):gmatch("(.-)\n") do
+    local link
+    if line:match("^%[.*%]%(.*%)%{.*figure%-link.*%}%s*$") then
+      local para = pandoc.read(line, "markdown").blocks[1]
+      if para and (para.t == "Para" or para.t == "Plain") and #para.content == 1
+         and para.content[1].t == "Link" and para.content[1].classes:includes("figure-link") then
+        link = para.content[1]
+      end
+    end
+    if link then
+      flush_text()
+      out:insert(pandoc.Div({ pandoc.Para({ link }) }, pandoc.Attr("", { "cell-output", "cell-output-display" })))
+      found = true
+    elseif line ~= "" or #text > 0 then
+      text:insert(line)
+    end
+  end
+  flush_text()
+  return found and out or nil
 end
 
 local function contains_image(block)
@@ -104,7 +143,12 @@ end
 function Div(cell)
   if not cell.classes:includes("cell") then return nil end
   local out, after, changed = pandoc.List(), pandoc.List(), false
+  local blocks = pandoc.List()
   for _, block in ipairs(cell.content) do
+    local links = printed_links(block)
+    if links then blocks:extend(links); changed = true else blocks:insert(block) end
+  end
+  for _, block in ipairs(blocks) do
     local link = lone_figure_link(block)
     if link then
       for i = #out, 1, -1 do

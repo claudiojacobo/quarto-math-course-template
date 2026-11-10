@@ -3,6 +3,8 @@
 Having established the classical framework in @sec-polytopes, we now consider a modification in which the ambient space is no longer assumed to carry a Riemannian metric. A *hypersquare* will refer, informally, to an $n$-cube equipped with a combinatorial structure that replaces the usual smooth notions of distance and curvature.
 
 ::: {#def-hypersquare}
+#### Hypersquare
+[@exm-unit-cube @def-face]{.uses}
 An $n$-dimensional *hypersquare* consists of a combinatorial $n$-cube $Q$ together with:
 
 1. An assignment of a transport operator $T_e$ to each oriented edge $e$ of $Q$, and  
@@ -11,12 +13,18 @@ An $n$-dimensional *hypersquare* consists of a combinatorial $n$-cube $Q$ togeth
 
 We write $\Hsq{n}$ for an $n$-dimensional hypersquare. Instead of a metric tensor, we therefore work with these discrete transport operators and their associated coherence data.
 
-::: {.block-tip}
+::: {#exm-trivial-hypersquare}
+#### The trivial hypersquare
+[@def-hypersquare]{.uses}
+Assigning the identity to every oriented edge and to every 2-face gives a hypersquare: every composition around a face is the identity.
+:::
+
+:::: {.block-tip}
 ::: {.block-header}
 A note on notation
 :::
 The macro `\Hsq` is defined in this course's own `macros.tex`, at the root of the project; macros like `\Rb` come with the mathkit extension. Blocks like this one (`block-tip`, `block-info`, `block-warning`, …) look the same on the web and in the PDF.
-:::
+::::
 
 ::: {#rem-no-differentiability}
 This setup allows us to speak of parallel transport and holonomy without requiring differentiability!
@@ -25,11 +33,12 @@ This setup allows us to speak of parallel transport and holonomy without requiri
 Every 2-face imposes one coherence condition, so @prp-cube-faces counts them for us.
 
 ::: {#cor-coherence-count}
+[@def-hypersquare @prp-cube-faces]{.uses}
 A hypersquare $\Hsq{n}$ satisfies exactly $\binom{n}{2} 2^{n-2}$ coherence conditions.
 :::
 
 ::: {.proof .smile}
-Apply @prp-cube-faces with $k = 2$. (On the website this proof ends with a smile instead of a square: it is written `::: {.proof .smile}`.)
+Apply @prp-cube-faces with $k = 2$. (On the website this proof ends with a smile instead of a square: it is written using `::: {.proof .smile}`.)
 :::
 
 ::: {.block-warning}
@@ -42,4 +51,10 @@ The condition on a 2-face fixes the composition *around* the face, not the order
 ## Fundamental Phenomena {#sec-hypersquares-fundamental-phenomena}
 
 One immediate consequence of this weakened structure is that standard metric identities hold only locally, if at all. For example, while @thm-pythagoras continues to describe distances within individual faces that admit Euclidean charts, there is no guarantee that these local computations are compatible when extended across the entire hypersquare. As a result, geodesic paths---defined here as sequences of edges minimizing a suitable discrete action---need not be unique, and may exhibit periodicity or self-intersection without degeneracy. These phenomena will form the basis for later constructions, where hypersquares serve as model spaces for more general non-metric topological objects.
+
+::: {#cnj-local-pythagoras}
+#### Local Pythagoras
+[@def-hypersquare @thm-pythagoras]{.uses}
+If every 2-face of $\Hsq{n}$ admits a Euclidean chart, then @thm-pythagoras holds along every geodesic of $\Hsq{n}$.
+:::
 

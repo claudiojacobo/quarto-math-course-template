@@ -1,0 +1,166 @@
+/* graph-view.css: the map viewer (graph-view.js), whatever its nodes are.
+   An adapter's own stylesheet (concept-map.css, …) loads after this one and
+   colors its nodes. Colors are the theme's roles (--mk-*); the fallbacks are
+   for other themes. The root element has the class graph-view. */
+.graph-view {
+  --cm-bg: var(--mk-bg, #fff);
+  --cm-text: var(--mk-text, #212529);
+  --cm-line: var(--mk-line, #dee2e6);
+  --cm-edge: var(--mk-line-strong, #adb5bd);
+  --cm-accent: var(--mk-accent, #0d6efd);
+  margin: 1rem 0 2rem;
+  font-size: 0.9rem;
+}
+
+.cm-toolbar {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem;
+  align-items: center; justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.cm-legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin-bottom: 0.5rem; font-size: 0.9em; }
+.cm-controls { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.cm-views { display: inline-flex; }
+.cm-views .cm-button { border-radius: 0; }
+.cm-views .cm-button:first-child { border-radius: 6px 0 0 6px; }
+.cm-views .cm-button:last-child { border-radius: 0 6px 6px 0; margin-left: -1px; }
+.cm-button[aria-pressed="true"] { background: var(--cm-accent); border-color: var(--cm-accent); color: var(--mk-on-accent, #fff); }
+.cm-search {
+  width: 15rem; max-width: 55vw; padding: 0.15rem 0.5rem;
+  border: 1px solid var(--cm-line); border-radius: 6px;
+  background: var(--cm-bg); color: var(--cm-text);
+}
+.cm-search:focus { outline: 2px solid var(--cm-accent); outline-offset: 1px; }
+.cm-count { font-size: 0.85em; min-width: 5.5em; }
+.cm-full svg { display: block; margin: 0.15rem auto; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.graph-view.is-list .cm-map-only { display: none; }
+.cm-legend-item { display: inline-flex; align-items: center; gap: 0.3rem; }
+.cm-buttons { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+.cm-select { padding: 0.15rem 0.3rem; }
+.cm-toggle { margin-right: 0.5rem; cursor: pointer; }
+.cm-button {
+  min-width: 2.2rem; padding: 0.15rem 0.6rem;
+  border: 1px solid var(--cm-line); border-radius: 6px;
+  background: var(--cm-bg); color: var(--cm-text); cursor: pointer;
+}
+.cm-button:hover { border-color: var(--cm-accent); }
+
+.cm-stage {
+  position: relative;
+  height: min(78vh, 900px); min-height: 420px;
+  border: 1px solid var(--cm-line); border-radius: 8px;
+  background: var(--cm-bg);
+  overflow: hidden;
+}
+.cm-stage { touch-action: none; }   /* fingers drag and pinch the map, not the page (labels included) */
+.cm-svg { width: 100%; height: 100%; display: block; cursor: grab; user-select: none; }
+.cm-svg:active { cursor: grabbing; }
+
+/* shapes: the adapter's stylesheet fills them */
+.cm-shape { stroke: var(--cm-bg); stroke-width: 1.5; }
+
+.cm-node { cursor: pointer; outline: none; transition: opacity 0.15s; }
+
+/* --cm-s (set by the script) shrinks arrows once zoomed in past the point
+   where things stop growing */
+.cm-edge { stroke: var(--cm-edge); stroke-width: calc(1.3px * var(--cm-s, 1)); transition: opacity 0.15s; }
+.cm-arrowhead { fill: var(--cm-edge); }
+.cm-arrowhead.is-lit { fill: var(--cm-accent); }
+.cm-edge.is-lit { stroke: var(--cm-accent); stroke-width: calc(2.2px * var(--cm-s, 1)); }
+
+/* labels: HTML over the drawing, placed by the script */
+.cm-labels {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  -webkit-user-select: none; user-select: none;
+}
+.cm-label { position: absolute; left: 0; top: 0; white-space: nowrap; }
+.cm-label {
+  transform-origin: 0 50%;
+  font-size: 12px; line-height: 1.25; color: var(--cm-text);
+  text-shadow: 0 0 2px var(--cm-bg), 0 0 2px var(--cm-bg), 0 0 3px var(--cm-bg), 0 0 4px var(--cm-bg);
+  pointer-events: auto; cursor: pointer;
+  transition: opacity 0.15s;
+}
+.cm-label.is-focus, .cm-label.is-hover, .cm-label.is-compare { font-weight: 600; }
+.cm-label[hidden] { display: none; }
+.cm-stage.is-far .cm-label:not(.is-lit) { display: none; }   /* zoomed out: labels only when lit */
+
+/* something is highlighted: everything else fades */
+.cm-stage.has-highlight .cm-node:not(.is-lit),
+.cm-stage.has-highlight .cm-label:not(.is-lit) { opacity: 0.15; }
+.cm-stage.has-highlight .cm-edge:not(.is-lit) { opacity: 0.08; }
+.cm-node.is-focus .cm-shape, .cm-node.is-hover .cm-shape,
+.cm-node:focus-visible .cm-shape { stroke: var(--cm-accent); stroke-width: 3; }
+.cm-node.is-compare .cm-shape { stroke: var(--cm-accent); stroke-width: 3; stroke-dasharray: 3 2; }
+/* "Compare with…": choosing the second node */
+.cm-stage.is-picking .cm-svg, .cm-stage.is-picking .cm-node, .cm-stage.is-picking .cm-label { cursor: crosshair; }
+
+/* the card: top right on wide screens, along the bottom on narrow ones */
+.cm-card {
+  position: absolute; top: 0.75rem; right: 0.75rem;
+  width: min(24rem, calc(100% - 1.5rem)); max-height: calc(100% - 1.5rem); overflow: auto;
+  padding: 0.8rem 1rem;
+  background: var(--cm-bg); color: var(--cm-text);
+  border: 1px solid var(--cm-line); border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+.cm-card[hidden], .cm-stage[hidden], .cm-list[hidden], .cm-views[hidden] { display: none; }
+@media (max-width: 700px) {
+  .cm-card { top: auto; bottom: 0.75rem; max-height: 45%; }
+}
+.cm-card p { margin: 0 0 0.4rem; }
+.cm-card-name { font-weight: 700; }
+.cm-card-title { font-style: italic; }
+.cm-card-statement { margin: 0.5rem 0; }
+.cm-card-statement > :last-child { margin-bottom: 0; }
+.cm-card-rel { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; }
+.cm-card-rel-label { font-weight: 600; margin-right: 0.2rem; }
+.cm-chip {
+  padding: 0 0.45rem; border-radius: 999px; font-size: 0.85em;
+  border: 1px solid var(--cm-line); background: var(--cm-bg); color: var(--cm-text); cursor: pointer;
+}
+.cm-chip:hover { border-color: var(--cm-accent); }
+.cm-card-open { display: inline-block; margin-top: 0.3rem; font-weight: 600; }
+/* a color as a bar beside the name (the adapter's .cm-text-* set it; accent
+   colors aren't all readable as text on the card's background) */
+.cm-card-name { padding-left: 0.5rem; border-left: 5px solid var(--cm-line); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cm-node, .cm-edge, .cm-label { transition: none; }
+}
+
+/* full screen: the browser's own, or (where it can't) the whole window */
+.graph-view.is-full {
+  display: flex; flex-direction: column;
+  margin: 0; padding: 0.75rem; background: var(--cm-bg); color: var(--cm-text);
+}
+.graph-view.is-expanded { position: fixed; inset: 0; z-index: 2000; }
+.graph-view.is-full .cm-stage { flex: 1 1 auto; height: auto; min-height: 0; }
+.graph-view.is-full .cm-list { flex: 1 1 auto; overflow: auto; min-height: 0; }
+html.cm-locked { overflow: hidden; }
+
+/* the List view: the same nodes as text, in sections */
+.cm-list-heading { font-size: 1.15rem; margin: 1.25rem 0 0.4rem; padding: 0; border: 0; }
+.cm-list-chapter:first-child .cm-list-heading { margin-top: 0.25rem; }
+.cm-list-items { list-style: none; padding: 0; margin: 0; }
+.cm-list-item { margin: 0 0 0.5rem; padding: 0.2rem 0 0.2rem 0.7rem; border-left: 4px solid var(--cm-line); }
+.cm-list-item p { margin: 0 0 0.15rem; }
+.cm-list-name a:first-child { font-weight: 600; }
+.cm-list-rel { font-size: 0.92em; }
+.cm-list-rel-label { font-weight: 600; margin-right: 0.25em; }
+.cm-list-show {
+  margin-left: 0.6rem; padding: 0 0.45rem; border-radius: 999px; font-size: 0.8em;
+  border: 1px solid var(--cm-line); background: var(--cm-bg); color: var(--cm-text); cursor: pointer;
+}
+.cm-list-show:hover { border-color: var(--cm-accent); }
+.cm-list details summary { cursor: pointer; font-size: 0.92em; }
+.cm-list-statement { margin: 0.3rem 0 0.4rem; }
+.cm-list-statement > :last-child { margin-bottom: 0; }
+.cm-list-item:target, .cm-list-item.is-current { background: color-mix(in srgb, var(--cm-accent) 8%, transparent); }
+
+/* printed: the list, whichever view is showing */
+@media print {
+  .cm-toolbar, .cm-stage, .cm-list-show { display: none !important; }
+  .cm-list { display: block !important; }
+  .cm-list-item { break-inside: avoid; }
+}
